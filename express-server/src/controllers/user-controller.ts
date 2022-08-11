@@ -5,7 +5,7 @@ import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 
-interface SignupBody {
+interface UserInfo {
   name: string;
   email: string;
   phone?: string;
@@ -22,8 +22,11 @@ exports.signup_post = [
     .isLength({ min: 6, max: 16 })
     .escape(),
 
-  (req: Request<SignupBody>, res: Response, next: NextFunction) => {
+  (req: Request<UserInfo>, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors });
+    }
     bcrypt.hash(req.body.password, 10, (err: Error, hashedPassword: string) => {
       if (err) {
         return next(err);
@@ -47,9 +50,6 @@ exports.signup_post = [
           return res
             .status(400)
             .json({ message: 'That username is already taken.' });
-        }
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors });
         }
         user.save((err, user) => {
           if (err) {
@@ -99,7 +99,6 @@ exports.logout_post = (req: Request, res: Response, next: NextFunction) => {
 
 exports.user_get = (req: Request, res: Response, next: NextFunction) => {
   if (req.isAuthenticated()) {
-    console.log(req);
     User.findById(req.user._id).exec((err, results) => {
       if (err) {
         return next(err);
@@ -110,3 +109,44 @@ exports.user_get = (req: Request, res: Response, next: NextFunction) => {
     res.status(401).json({ message: 'Access denied. Not logged in.' });
   }
 };
+
+exports.user_put = [
+  body('name', 'Enter your name.').trim().isLength({ min: 1 }).escape(),
+  body('email', 'Enter a valid email.').trim().isLength({ min: 1 }).escape(),
+  body('phone', 'Enter a valid phone number').trim().escape(),
+  body('password', 'Password must be between 6 and 16 characters.')
+    .isLength({ min: 6, max: 16 })
+    .escape(),
+
+  (req: Request<UserInfo>, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (req.isAuthenticated()) {
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ message: errors });
+      }
+      const user = new User({
+        _id: req.user._id,
+        name: req.body.name.charAt(0)
+          ? req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1)
+          : '',
+        email: req.body.email,
+        phone: req.body.phone ? req.body.phone : '',
+        password: req.body.password,
+        emailAlert: req.body.emailAlert,
+        textAlert: req.body.textAlert,
+      });
+      User.findByIdAndUpdate(req.user._id, user, {}, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res
+          .status(200)
+          .json({ message: 'Account updated successfully.' });
+      });
+    } else {
+      return res.status(401).json({
+        message: 'Access denied. Not logged in.',
+      });
+    }
+  },
+];
