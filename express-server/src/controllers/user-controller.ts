@@ -65,7 +65,7 @@ exports.signup_post = [
 ];
 
 exports.login_post = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('local', (err: Error, user: IUser) => {
+  passport.authenticate('local', (err: Error, user) => {
     if (err) {
       return next(err);
     }
@@ -95,4 +95,18 @@ exports.logout_post = (req: Request, res: Response, next: NextFunction) => {
       message: 'Logged out successfully.',
     });
   });
+};
+
+exports.user_get = (req: Request, res: Response, next: NextFunction) => {
+  if (req.isAuthenticated()) {
+    console.log(req);
+    User.findById(req.user._id).exec((err, results) => {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json(results);
+    });
+  } else {
+    res.status(401).json({ message: 'Access denied. Not logged in.' });
+  }
 };
