@@ -7,5 +7,6 @@ router.post('/login', user_controller.login_post);
 router.post('/logout', user_controller.logout_post);
 
 router.get('/:id', user_controller.user_get);
+router.put('/', user_controller.user_put);
 
 export default router;
