@@ -1,4 +1,4 @@
-import { IUser } from '@models/user-model';
+import { IUser } from '@models/user';
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
 import { body, validationResult } from 'express-validator';
@@ -65,7 +65,7 @@ exports.signup_post = [
 ];
 
 exports.login_post = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('local', (err: NativeError, user: IUser) => {
+  passport.authenticate('local', (err: Error, user: IUser) => {
     if (err) {
       return next(err);
     }
@@ -74,7 +74,7 @@ exports.login_post = (req: Request, res: Response, next: NextFunction) => {
         .status(401)
         .json({ message: 'Incorrect username or password.' });
     }
-    req.login(user, (err: NativeError) => {
+    req.login(user, (err: Error) => {
       if (err) {
         return res.send(err);
       }
@@ -87,7 +87,7 @@ exports.login_post = (req: Request, res: Response, next: NextFunction) => {
 };
 
 exports.logout_post = (req: Request, res: Response, next: NextFunction) => {
-  req.logout((err: NativeError) => {
+  req.logout((err: Error) => {
     if (err) {
       return next(err);
     }
