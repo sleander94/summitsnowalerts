@@ -1,0 +1,107 @@
+#login,
+#signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  padding-top: 8rem;
+  color: $dark;
+  a {
+    text-decoration: none;
+    color: $dark;
+  }
+  a:hover {
+    color: $medium-blue;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    p {
+      font-size: 0.75rem;
+    }
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    input {
+      border-radius: 0;
+      border: 1px solid $dark;
+      font-size: 1rem;
+      max-width: 250px;
+      height: 1.5rem;
+      -webkit-appearance: none;
+    }
+    input:focus {
+      outline: none;
+      border: 1px solid $medium-blue;
+      box-shadow: 0 0 5px $medium-blue;
+    }
+    input.touched:invalid {
+      border: 1px solid red;
+    }
+    input.touched:invalid:focus {
+      box-shadow: 0 0 5px red;
+    }
+    p.error {
+      max-width: 250px;
+      color: red;
+    }
+  }
+  .form-field-check {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+  .checkbox-msg {
+    text-align: center;
+    font-style: italic;
+  }
+  button {
+    background-color: $dark;
+    color: #fff;
+    padding: 6px 48px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  button:hover {
+    cursor: pointer;
+    color: $dark;
+    background-color: $light;
+  }
+  .posting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 48px;
+    height: 40px;
+    .spinner {
+      border: 2px solid #fff;
+      border-top: 2px solid $dark;
+      border-right: 2px solid $dark;
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      animation: spin 1.2s linear infinite;
+    }
+  }
+  .response {
+    color: red;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  #signup {
+    padding-top: 4rem;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
