@@ -30,7 +30,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>('');
-  const [mountains, setMountains] = useState<number[]>();
+  const [mountains, setMountains] = useState<Object>();
 
   const [name, setName] = useState<string>();
   const [newEmail, setNewEmail] = useState<string>();
@@ -94,6 +94,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setPosted(false);
     if (!error) {
       try {
         console.log('posting');
@@ -130,6 +131,8 @@ const AccountInfoForm = ({ user }: AuthProps) => {
       } catch (err) {
         console.error(err);
       }
+    } else {
+      setPostError("Can't submit form with errors. ");
     }
   };
 
@@ -141,8 +144,8 @@ const AccountInfoForm = ({ user }: AuthProps) => {
   };
 
   return (
-    <section id="account">
-      {!user && <Navigate to="/home" />}
+    <section id="account-info-form">
+      {!user && <Navigate to="/" />}
       <h1>Account Info</h1>
       <form action="" onSubmit={(e) => handleSubmit(e)}>
         <div className="form-field">
@@ -151,7 +154,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             <>
               <p>{name}</p>
               <button type="button" onClick={() => setEditName(true)}>
-                Edit
+                <img
+                  src={require('../../assets/icons/icons8-edit.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -174,7 +179,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 type="button"
                 onClick={() => (!nameErr ? setEditName(false) : null)}
               >
-                Confirm
+                <img
+                  src={require('../../assets/icons/icons8-done.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -185,7 +192,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             <>
               <p>{newEmail}</p>
               <button type="button" onClick={() => setEditEmail(true)}>
-                Edit
+                <img
+                  src={require('../../assets/icons/icons8-edit.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -208,7 +217,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 type="button"
                 onClick={() => (!emailErr ? setEditEmail(false) : null)}
               >
-                Confirm
+                <img
+                  src={require('../../assets/icons/icons8-done.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -219,7 +230,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             <>
               <p>{phone}</p>
               <button type="button" onClick={() => setEditPhone(true)}>
-                Edit
+                <img
+                  src={require('../../assets/icons/icons8-edit.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -242,7 +255,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 type="button"
                 onClick={() => (!phoneErr ? setEditPhone(false) : null)}
               >
-                Confirm
+                <img
+                  src={require('../../assets/icons/icons8-done.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -253,7 +268,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             <>
               <p>{newPass ? '*'.repeat(newPass.length) : '******'}</p>
               <button type="button" onClick={() => setEditPass(true)}>
-                Edit
+                <img
+                  src={require('../../assets/icons/icons8-edit.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -277,7 +294,9 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                   !passwordErr && !confirmPassErr ? setEditPass(false) : null
                 }
               >
-                Confirm
+                <img
+                  src={require('../../assets/icons/icons8-done.svg').default}
+                ></img>
               </button>
             </>
           )}
@@ -331,8 +350,8 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             </div>
           )}
         </div>
-        {postError && <p className="response">{postError}</p>}
-        {posted && <p>Account updated successfully.</p>}
+        {postError && <p className="post-error">{postError}</p>}
+        {posted && <p className="posted">Account updated successfully.</p>}
       </form>
     </section>
   );
