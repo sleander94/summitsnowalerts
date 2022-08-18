@@ -1,12 +1,10 @@
 import { useEffect, useState, FormEvent } from 'react';
-import { Navigate } from 'react-router-dom';
 import { AuthProps, mountainsObj } from '../../types.d';
 import { mountains as mountainsRef } from '../../mountains';
 
 const MountainsForm = ({ user }: AuthProps) => {
   useEffect(() => {
     if (user) {
-      console.log(user);
       setMountains(user.mountains);
     }
   }, [user]);
@@ -14,12 +12,19 @@ const MountainsForm = ({ user }: AuthProps) => {
   const [mountains, setMountains] = useState<mountainsObj>();
   const [password, setPassword] = useState<string>('');
 
-  const updateMountains = (mountain: keyof mountainsObj) => {
+  const [selectedMountain, setSelectedMountain] =
+    useState<keyof mountainsObj>('Breckenridge');
+
+  const addMountain = (mountain: keyof mountainsObj) => {
     let tempMountains = mountains as mountainsObj;
-    tempMountains[mountain]
-      ? (tempMountains[mountain] = 0)
-      : (tempMountains[mountain] = mountainsRef[mountain]);
-    setMountains(tempMountains);
+    tempMountains[mountain] = mountainsRef[mountain];
+    setMountains({ ...tempMountains });
+  };
+
+  const removeMountain = (mountain: keyof mountainsObj) => {
+    let tempMountains = mountains as mountainsObj;
+    delete tempMountains[mountain];
+    setMountains({ ...tempMountains });
   };
 
   const [posting, setPosting] = useState<boolean>(false);
@@ -31,7 +36,6 @@ const MountainsForm = ({ user }: AuthProps) => {
     setPosted(false);
     if (user) {
       try {
-        console.log('posting');
         setPosting(true);
         const response = await fetch('/users', {
           method: 'PUT',
@@ -50,7 +54,6 @@ const MountainsForm = ({ user }: AuthProps) => {
         });
         console.log(response);
         if (response.ok) {
-          console.log('updated');
           setPostError(undefined);
           setPosted(true);
           setPassword('');
@@ -70,52 +73,50 @@ const MountainsForm = ({ user }: AuthProps) => {
 
   return (
     <section id="mountains-form">
-      {/*     {!user && <Navigate to="/home" />} */}
       <h1>My Mountains</h1>
       <form action="" onSubmit={(e) => handleSubmit(e)}>
+        <div className="form-field">
+          <label htmlFor="mountains">Add a mountain:</label>
+          <select
+            name="mountains"
+            value={selectedMountain}
+            onChange={(e) => {
+              setSelectedMountain(e.target.value as keyof mountainsObj);
+              console.log(selectedMountain);
+            }}
+          >
+            {Object.keys(mountainsRef)
+              .sort()
+              .map((key) => {
+                const mountain = key as keyof mountainsObj;
+                return (
+                  <option key={mountain} value={mountain}>
+                    {mountain}
+                  </option>
+                );
+              })}
+          </select>
+          <button type="button" onClick={() => addMountain(selectedMountain)}>
+            Add
+          </button>
+        </div>
         {mountains && (
-          <>
-            <div className="form-field-check">
-              <input
-                type="checkbox"
-                name="vail"
-                defaultChecked={
-                  mountains['Vail'] && mountains['Vail'] > 0 ? true : false
-                }
-                value={mountains['Vail']}
-                onChange={() => updateMountains('Vail')}
-              />
-              <label htmlFor="vail">Vail</label>
-            </div>
-            <div className="form-field-check">
-              <input
-                type="checkbox"
-                name="keystone"
-                defaultChecked={
-                  mountains['Keystone'] && mountains['Keystone'] > 0
-                    ? true
-                    : false
-                }
-                value={mountains['Keystone']}
-                onChange={() => updateMountains('Keystone')}
-              />
-              <label htmlFor="keystone">Keystone</label>
-            </div>
-            <div className="form-field-check">
-              <input
-                type="checkbox"
-                name="breckenridge"
-                defaultChecked={
-                  mountains['Breckenridge'] && mountains['Breckenridge'] > 0
-                    ? true
-                    : false
-                }
-                value={mountains['Breckenridge']}
-                onChange={() => updateMountains('Breckenridge')}
-              />
-              <label htmlFor="breckenridge">Breckenridge</label>
-            </div>
-          </>
+          <ol>
+            {Object.keys(mountains).map((key) => {
+              const mountain = key as keyof mountainsObj;
+              return (
+                <li key={mountain}>
+                  {mountain}{' '}
+                  <button
+                    type="button"
+                    onClick={() => removeMountain(mountain)}
+                  >
+                    x
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         )}
         <div className="form-field">
           <label htmlFor="password">Password: </label>
