@@ -14,8 +14,6 @@ const Login = ({ user, getUser }: AuthProps) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Email: ' + email);
-    console.log('Password: ' + password);
     try {
       setPosting(true);
       const response = await fetch('/users/login', {
@@ -28,7 +26,6 @@ const Login = ({ user, getUser }: AuthProps) => {
           password,
         }),
       });
-      console.log(response);
       const data = await response.json();
       if (getUser) getUser(data.user);
       if (response.ok) {
@@ -46,55 +43,58 @@ const Login = ({ user, getUser }: AuthProps) => {
 
   return (
     <section id="login">
-      {user && <Navigate to="/profile" />}
-      <h1>Log In</h1>
-      <Link to="/signup">Don't have an account? Signup</Link>
-      <form action="" onSubmit={handleSubmit} noValidate>
-        <p>* Required field</p>
-        <div className="form-field">
-          <label htmlFor="email">Email *</label>
-          <input
-            type="email"
-            name="email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            onBlur={(e) => {
-              e.target.className = 'touched';
-              !email.match(
-                /([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi
-              )
-                ? setEmailErr('Enter a valid email.')
-                : setEmailErr(undefined);
-            }}
-          />
-          {emailErr && <p className="error">{emailErr}</p>}
-        </div>
-        <div className="form-field">
-          <label htmlFor="password">Password *</label>
-          <input
-            type="password"
-            name="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            onBlur={(e) => {
-              e.target.className = 'touched';
-              !password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/gi)
-                ? setPasswordErr(
-                    'Password must be at least 6 characters with 1 letter and 1 number.'
-                  )
-                : setPasswordErr(undefined);
-            }}
-          />
-          {passwordErr && <p className="error">{passwordErr}</p>}
-        </div>
-        {!posting && <button>Log In</button>}
-        {posting && (
-          <div className="posting">
-            <div className="spinner"></div>
+      {user && <Navigate to="/" />}
+      <div className="background-image"></div>
+      <div className="content">
+        <h1>Log In</h1>
+        <form action="" onSubmit={handleSubmit} noValidate>
+          <Link to="/signup">Don't have an account? Signup</Link>
+          <p>* Required field</p>
+          <div className="form-field">
+            <label htmlFor="email">Email *</label>
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={(e) => {
+                e.target.className = 'touched';
+                !email.match(
+                  /([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi
+                )
+                  ? setEmailErr('Enter a valid email.')
+                  : setEmailErr(undefined);
+              }}
+            />
+            {emailErr && <p className="error">{emailErr}</p>}
           </div>
-        )}
-      </form>
-      {postResponse && <p className="response">{postResponse}</p>}
+          <div className="form-field">
+            <label htmlFor="password">Password *</label>
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              onBlur={(e) => {
+                e.target.className = 'touched';
+                !password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/gi)
+                  ? setPasswordErr(
+                      'Password must be at least 6 characters with 1 letter and 1 number.'
+                    )
+                  : setPasswordErr(undefined);
+              }}
+            />
+            {passwordErr && <p className="error">{passwordErr}</p>}
+          </div>
+          {!posting && <button>Log In</button>}
+          {posting && (
+            <div className="posting">
+              <div className="spinner"></div>
+            </div>
+          )}
+        </form>
+        {postResponse && <p className="response">{postResponse}</p>}
+      </div>
     </section>
   );
 };
