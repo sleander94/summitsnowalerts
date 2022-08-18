@@ -1,0 +1,70 @@
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  text-align: center;
+  color: $dark;
+  h2 {
+    padding: 1rem;
+    font-size: 1.8rem;
+    color: inherit;
+  }
+  .link-container {
+    display: flex;
+    gap: 10rem;
+  }
+  a {
+    font-size: 1.5rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid $dark;
+    color: #fff;
+    background-color: $dark;
+    padding: 12px 64px;
+  }
+  a:hover {
+    background-color: $light-blue;
+  }
+  .title {
+    display: grid;
+    width: 100%;
+    height: 40%;
+    h1 {
+      grid-area: 1 / 1 / 2 / 2;
+      align-self: center;
+      z-index: 2;
+      font-size: 2.8rem;
+      color: #fff;
+    }
+    .background-image {
+      grid-area: 1 / 1 / 2 / 2;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-image: url('/home/stephen/repos/snow-alerts/react-app/src/assets/ales-krivec-gVG5k5u1Cxw-unsplash.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(70%);
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  #home {
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    .link-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+}
