@@ -1,8 +1,29 @@
-import { Http2ServerRequest } from 'http2';
+import { useState, useEffect } from 'react';
 import { AuthProps, mountainsObj } from '../types.d';
 import MountainWeather from './MountainWeather';
 
 const Conditions = ({ user }: AuthProps) => {
+  const [mountains, setMountains] = useState<mountainsObj>();
+
+  const getMountains = async () => {
+    try {
+      const response = await fetch('/users', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      setMountains(data.mountains);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getMountains();
+  }, [user]);
+
   return (
     <section id="conditions">
       <div className="background-image"></div>
@@ -14,15 +35,15 @@ const Conditions = ({ user }: AuthProps) => {
           </h2>
         )}
         <div className="weather">
-          {user &&
-            Object.keys(user.mountains).map((key) => {
+          {mountains &&
+            Object.keys(mountains).map((key) => {
               const mountain = key as keyof mountainsObj;
-              if (user.mountains[mountain] == undefined) return;
+              if (mountains[mountain] == undefined) return;
               return (
                 <MountainWeather
                   key={mountain}
                   name={mountain}
-                  location={user.mountains[mountain] as number}
+                  location={mountains[mountain] as number}
                 />
               );
             })}
