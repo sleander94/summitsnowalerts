@@ -6,7 +6,9 @@ router.post('/signup', user_controller.signup_post);
 router.post('/login', user_controller.login_post);
 router.post('/logout', user_controller.logout_post);
 
-router.get('/:id', user_controller.user_get);
+router.get('/', user_controller.user_get);
 router.put('/', user_controller.user_put);
+
+router.get('/auth', user_controller.auth_get);
 
 export default router;
