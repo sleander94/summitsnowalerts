@@ -1,14 +1,21 @@
 #header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 64px;
+  width: 100%;
   background-color: $dark;
   a {
-    display: flex;
-    align-items: center;
     color: #fff;
     text-decoration: none;
+  }
+  a.title {
+    display: flex;
+    align-items: center;
+
     img {
       width: 32px;
       height: 32px;
@@ -16,6 +23,13 @@
       filter: invert(94%) sepia(6%) saturate(0%) hue-rotate(1deg)
         brightness(104%) contrast(107%);
     }
+  }
+  nav.desktop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1rem;
   }
 }
 
@@ -25,6 +39,22 @@
       h1 {
         font-size: 1.5rem;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #header {
+    nav.desktop {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #header {
+    div {
+      display: none;
     }
   }
 }
