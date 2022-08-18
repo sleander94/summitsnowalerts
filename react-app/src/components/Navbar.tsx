@@ -15,7 +15,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
   };
   return (
     <header id="header">
-      <Link className="title" to="/home">
+      <Link className="title" to="/">
         <img
           src={
             require('../assets/icons/snowy-mountains-svgrepo-com.svg').default
@@ -23,6 +23,43 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         />
         <h1>Summit Snow Alerts</h1>
       </Link>
+      {/* Desktop Menu */}
+      <nav className="desktop">
+        <Link id="home-link" className="menu-item" to="/">
+          Home
+        </Link>
+        <Link id="mountains-link" className="menu-item" to="/conditions">
+          My Mountains
+        </Link>
+        {user && (
+          <Link id="account-link" className="menu-item" to="/account">
+            Account
+          </Link>
+        )}
+        {!user && (
+          <Link id="signup-link" className="menu-item" to="/signup">
+            Signup
+          </Link>
+        )}
+        {!user && (
+          <Link id="login-link" className="menu-item" to="/login">
+            Login
+          </Link>
+        )}
+        {user && (
+          <Link
+            id="logout-link"
+            className="menu-item"
+            to="/"
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Link>
+        )}
+      </nav>
+      {/* Mobile Menu */}
       <Menu
         right
         width={200}
@@ -31,9 +68,9 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         onClose={handleIsOpen}
       >
         <Link
-          id="home"
+          id="home-link"
           className="menu-item"
-          to="/home"
+          to="/"
           onClick={() => {
             closeMenu();
           }}
@@ -41,46 +78,64 @@ const Navbar = ({ user, logout }: NavbarProps) => {
           Home
         </Link>
         <Link
-          id="conditions"
+          id="mountains-link"
           className="menu-item"
           to="/conditions"
           onClick={() => {
             closeMenu();
           }}
         >
-          Conditions
+          My Mountains
         </Link>
-        <Link
-          id="account"
-          className="menu-item"
-          to="/account"
-          onClick={() => {
-            closeMenu();
-          }}
-        >
-          Account
-        </Link>
-        <Link
-          id="signup"
-          className="menu-item"
-          to="/signup"
-          onClick={() => {
-            closeMenu();
-          }}
-        >
-          Signup
-        </Link>
-        <Link
-          id="login"
-          className="menu-item"
-          to="/login"
-          onClick={() => {
-            closeMenu();
-          }}
-        >
-          Login
-        </Link>
-        <button onClick={() => logout()}>Logout</button>
+        {user && (
+          <Link
+            id="account-link"
+            className="menu-item"
+            to="/account"
+            onClick={() => {
+              closeMenu();
+            }}
+          >
+            Account
+          </Link>
+        )}
+        {!user && (
+          <Link
+            id="signup-link"
+            className="menu-item"
+            to="/signup"
+            onClick={() => {
+              closeMenu();
+            }}
+          >
+            Signup
+          </Link>
+        )}
+        {!user && (
+          <Link
+            id="login-link"
+            className="menu-item"
+            to="/login"
+            onClick={() => {
+              closeMenu();
+            }}
+          >
+            Login
+          </Link>
+        )}
+        {user && (
+          <Link
+            id="logout-link"
+            className="menu-item"
+            to="/"
+            onClick={() => {
+              logout();
+              closeMenu();
+            }}
+          >
+            Logout
+          </Link>
+        )}
       </Menu>
     </header>
   );
