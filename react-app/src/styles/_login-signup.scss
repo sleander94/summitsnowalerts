@@ -92,8 +92,9 @@
 }
 
 @media only screen and (max-width: 640px) {
-  #signup {
-    padding-top: 4rem;
+  #signup,
+  #login {
+    padding-top: 2rem;
   }
 }
 
