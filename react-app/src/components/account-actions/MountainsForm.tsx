@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthProps, mountainsObj } from '../../types.d';
 import { mountains as mountainsRef } from '../../mountains';
@@ -78,16 +78,14 @@ const MountainsForm = ({ user }: AuthProps) => {
             <div className="form-field-check">
               <input
                 type="checkbox"
-                name="breckenridge"
+                name="vail"
                 defaultChecked={
-                  mountains['Breckenridge'] && mountains['Breckenridge'] > 0
-                    ? true
-                    : false
+                  mountains['Vail'] && mountains['Vail'] > 0 ? true : false
                 }
-                value={mountains['Breckenridge']}
-                onChange={() => updateMountains('Breckenridge')}
+                value={mountains['Vail']}
+                onChange={() => updateMountains('Vail')}
               />
-              <label htmlFor="breckenridge">Breckenridge</label>
+              <label htmlFor="vail">Vail</label>
             </div>
             <div className="form-field-check">
               <input
@@ -106,14 +104,16 @@ const MountainsForm = ({ user }: AuthProps) => {
             <div className="form-field-check">
               <input
                 type="checkbox"
-                name="vail"
+                name="breckenridge"
                 defaultChecked={
-                  mountains['Vail'] && mountains['Vail'] > 0 ? true : false
+                  mountains['Breckenridge'] && mountains['Breckenridge'] > 0
+                    ? true
+                    : false
                 }
-                value={mountains['Vail']}
-                onChange={() => updateMountains('Vail')}
+                value={mountains['Breckenridge']}
+                onChange={() => updateMountains('Breckenridge')}
               />
-              <label htmlFor="vail">Vail</label>
+              <label htmlFor="breckenridge">Breckenridge</label>
             </div>
           </>
         )}
@@ -125,7 +125,7 @@ const MountainsForm = ({ user }: AuthProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {!posting && <button className="submit">Update</button>}
+          {!posting && <button className="submit">Save</button>}
           {posting && (
             <div className="posting">
               <div className="spinner"></div>
@@ -133,7 +133,7 @@ const MountainsForm = ({ user }: AuthProps) => {
           )}
         </div>
         {postError && <p className="post-error">{postError}</p>}
-        {posted && <p className="posted">Account updated successfully.</p>}
+        {posted && <p className="posted">Mountains updated successfully.</p>}
       </form>
     </section>
   );
