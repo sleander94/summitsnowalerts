@@ -7,8 +7,11 @@ const Account = ({ user }: AuthProps) => {
   return (
     <section id="account">
       {!user && <Navigate to="/" />}
-      <MountainsForm user={user} />
-      <AccountInfoForm user={user} />
+      <div className="background-image"></div>
+      <div className="content">
+        <MountainsForm user={user} />
+        <AccountInfoForm user={user} />
+      </div>
     </section>
   );
 };
