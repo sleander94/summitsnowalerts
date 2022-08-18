@@ -1,3 +1,12 @@
+$dark: #151c36;
+$medium: #485778;
+$medium-blue: #32497b;
+$light-blue: #5a7dc8;
+$light: #abb1bc;
+$light-white: #fff8e6;
+$light-red: #fbdcc4;
+$light-grey: #c9ccd2;
+
 * {
   margin: 0;
   padding: 0;
@@ -8,3 +17,32 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  display: grid;
+  min-height: 100vh;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.App {
+  display: grid;
+  grid: 64px 1fr 64px / 1fr;
+  min-height: 100%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+@import './burger-menu';
+@import './navbar';
+@import './home';
+@import './login-signup';
+@import './account';
+@import './accountinfoform';
+@import './mountainsform';
+@import './mountainweather';
+@import './conditions';
+@import './footer';
