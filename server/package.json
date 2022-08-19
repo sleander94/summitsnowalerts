@@ -7,7 +7,7 @@
   "scripts": {
     "build": "./node_modules/.bin/ts-node build.ts",
     "lint": "eslint . --ext .ts",
-    "start": "node ./node_modules/.bin/ts-node -r tsconfig-paths/register ./src",
+    "start": "node -r module-alias/register ./dist --env=production",
     "dev": "nodemon",
     "test": "nodemon --config ./spec/nodemon.json",
     "test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec"
