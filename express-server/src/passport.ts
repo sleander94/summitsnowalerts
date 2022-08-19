@@ -30,11 +30,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, function (err: Error, user: IUser) {
+  User.findById(id, function (err: Error, user: Express.User) {
     done(err, user);
   });
 });
