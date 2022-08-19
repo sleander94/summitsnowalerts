@@ -11,9 +11,18 @@ export interface IUser extends mongoose.Document {
 }
 
 export interface mountainsObj {
-  Breckenridge: number;
-  Keystone: number;
-  Vail: number;
+  Breckenridge?: number;
+  Keystone?: number;
+  Vail?: number;
+  Monarch?: number;
+  'Arapahoe Basin'?: number;
+  Copper?: number;
+  'Winter Park'?: number;
+  Steamboat?: number;
+  'Beaver Creek'?: number;
+  'Crested Butte'?: number;
+  Eldora?: number;
+  Aspen?: number;
 }
 
 const UserSchema = new mongoose.Schema({
