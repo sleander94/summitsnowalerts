@@ -7,7 +7,10 @@ const Home = ({ user }: AuthProps) => {
       <div className="background-image"></div>
       <h1>Summit Snow Alerts</h1>
       <div className="content">
-        <h2>Never miss powder at your favorite mountains</h2>
+        <h2>
+          Never miss a storm. Get text notifications for your favorite
+          mountains.
+        </h2>
         {user && <p>Welcome back, {user.name}.</p>}
         {!user && (
           <div className="link-container">
