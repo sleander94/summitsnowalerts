@@ -5,7 +5,7 @@ $light-blue: #5a7dc8;
 $light: #abb1bc;
 $light-white: #fff8e6;
 $light-red: #fbdcc4;
-$light-grey: #c9ccd2;
+$light-grey: #cfdeec;
 
 * {
   margin: 0;
@@ -24,12 +24,30 @@ body {
   max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
+  background-color: #fff;
 }
 
 .App {
   display: grid;
   grid: 64px 1fr 64px / 1fr;
   min-height: 100%;
+}
+
+html {
+  background-color: #eeeeee;
+}
+
+.background-image {
+  grid-area: 1 / 1 / 2 / 2;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/gabriel-alenius-USXfF_ONUGo-unsplash.jpg');
+  background-size: cover;
+  filter: brightness(50%);
 }
 
 button:hover {

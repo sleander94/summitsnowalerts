@@ -1,19 +1,39 @@
 .mountain-weather {
   display: grid;
-  grid: 3rem 1fr / 1fr 1fr;
-  width: 100%;
-  max-width: 600px;
-  padding: 1rem;
-  text-align: center;
-  color: $dark;
-  border: 1px solid $dark;
-  h2 {
-    grid-area: 1 / 1 / 2 / 3;
+  grid: 1 / 1 / 2 / 2;
+  .background-image {
+    background-image: none;
+    /*  background-image: url('../assets/snow-falling.jpg'); */
   }
-  .current-conditions {
-    grid-area: 2 / 1 / 3 / 2;
+  .weather-content {
+    grid-area: 1 / 1 / 2 / 2;
+    z-index: 2;
+    display: grid;
+    grid: 3rem 1fr / 1fr 1fr;
+    width: 100%;
+    min-width: 500px;
+    max-width: 600px;
+    padding: 1rem;
+    text-align: center;
+    color: $dark;
+    background-color: $light-grey;
+    border: 1px solid $dark;
+    h2 {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    .current-conditions {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+    .forecast {
+      grid-area: 2 / 2 / 3 / 3;
+    }
   }
-  .forecast {
-    grid-area: 2 / 2 / 3 / 3;
+}
+
+@media only screen and (max-width: 640px) {
+  .mountain-weather {
+    .weather-content {
+      min-width: 320px;
+    }
   }
 }
