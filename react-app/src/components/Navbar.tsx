@@ -29,7 +29,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
           Home
         </Link>
         <Link id="mountains-link" className="menu-item" to="/conditions">
-          My Mountains
+          Forecast
         </Link>
         {user && (
           <Link id="account-link" className="menu-item" to="/account">
@@ -85,7 +85,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
             closeMenu();
           }}
         >
-          My Mountains
+          Forecast
         </Link>
         {user && (
           <Link
