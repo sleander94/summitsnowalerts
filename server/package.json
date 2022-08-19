@@ -65,6 +65,7 @@
     "build.ts"
   ],
   "dependencies": {
+    "aws-sdk": "^2.1198.0",
     "bcryptjs": "^2.4.3",
     "command-line-args": "^5.2.1",
     "compression": "^1.7.4",
