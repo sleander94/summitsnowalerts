@@ -103,7 +103,19 @@ app.use(express.static(staticDir));
 cron.schedule(
   '0 18 * * *',
   () => {
-    console.log('Scheduled Alert');
+    console.log('Scheduled Alert - 6:00PM MDT');
+    sendTextAlerts();
+  },
+  {
+    scheduled: true,
+    timezone: 'America/Denver',
+  }
+);
+
+cron.schedule(
+  '0 18 * * *',
+  () => {
+    console.log('Scheduled Alert - 30min test');
     sendTextAlerts();
   },
   {
