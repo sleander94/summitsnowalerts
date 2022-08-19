@@ -7,15 +7,17 @@ import helmet from 'helmet';
 import session from 'express-session';
 import passport from 'passport';
 import cors from 'cors';
+import cron from 'node-cron';
 
 import express, { NextFunction, Request, Response } from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
 
-import apiRouter from './routes/api';
 import userRouter from './routes/users';
 import logger from 'jet-logger';
 import { CustomError } from '@shared/errors';
+
+import { sendTextAlerts } from './services/sms';
 
 import mongoose, { ConnectOptions } from 'mongoose';
 
@@ -70,9 +72,9 @@ if (process.env.NODE_ENV === 'production') {
  *                         API routes and error handling
  **********************************************************************************/
 
-// Add api router
-app.use('/api', apiRouter);
+// Add user api router
 app.use('/users', userRouter);
+
 // Error handling
 app.use(
   (err: Error | CustomError, _: Request, res: Response, __: NextFunction) => {
@@ -92,6 +94,23 @@ app.use(
 // Set static dir
 const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
+
+/***********************************************************************************
+ *                                  Alert Functions
+ **********************************************************************************/
+
+// Send daily text alert at 6:00 MDT
+cron.schedule(
+  '0 18 * * *',
+  () => {
+    console.log('Scheduled Alert');
+    sendTextAlerts();
+  },
+  {
+    scheduled: true,
+    timezone: 'America/Denver',
+  }
+);
 
 // Export here and start in a diff file (for testing).
 export default app;
