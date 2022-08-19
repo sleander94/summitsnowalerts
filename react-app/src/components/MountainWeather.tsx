@@ -16,32 +16,39 @@ const MountainWeather = ({ name, location }: WeatherProps) => {
   }, []);
   return (
     <div className="mountain-weather">
-      <h2>{name}</h2>
-      <div className="current-conditions">
-        <h3>Today</h3>
-        <p>{weather?.forecast.forecastday[0].day.condition.text}</p>
-        <img
-          src={weather?.forecast.forecastday[0].day.condition.icon}
-          alt={`${weather?.forecast.forecastday[0].day.condition.text} icon`}
-        />
-        <p>{weather?.forecast.forecastday[0].day.avgtemp_f} °F</p>
-        <p>
-          Snow: {weather?.forecast.forecastday[0].day.daily_chance_of_snow}%
-        </p>
-        <p>Precip: {weather?.forecast.forecastday[0].day.totalprecip_in} in.</p>
-      </div>
-      <div className="forecast">
-        <h3>Tomorrow</h3>
-        <p>{weather?.forecast.forecastday[1].day.condition.text}</p>
-        <img
-          src={weather?.forecast.forecastday[1].day.condition.icon}
-          alt={`${weather?.forecast.forecastday[1].day.condition.text} icon`}
-        />
-        <p>{weather?.forecast.forecastday[1].day.avgtemp_f} °F</p>
-        <p>
-          Snow: {weather?.forecast.forecastday[1].day.daily_chance_of_snow}%
-        </p>
-        <p>Precip: {weather?.forecast.forecastday[1].day.totalprecip_in} in.</p>
+      <div className="background-image"></div>
+      <div className="weather-content">
+        <h2>{name}</h2>
+        <div className="current-conditions">
+          <h3>Today</h3>
+          <p>{weather?.forecast.forecastday[0].day.condition.text}</p>
+          <img
+            src={weather?.forecast.forecastday[0].day.condition.icon}
+            alt={`${weather?.forecast.forecastday[0].day.condition.text} icon`}
+          />
+          <p>{weather?.forecast.forecastday[0].day.avgtemp_f} °F</p>
+          <p>
+            Snow: {weather?.forecast.forecastday[0].day.daily_chance_of_snow}%
+          </p>
+          <p>
+            Precip: {weather?.forecast.forecastday[0].day.totalprecip_in} in.
+          </p>
+        </div>
+        <div className="forecast">
+          <h3>Tomorrow</h3>
+          <p>{weather?.forecast.forecastday[1].day.condition.text}</p>
+          <img
+            src={weather?.forecast.forecastday[1].day.condition.icon}
+            alt={`${weather?.forecast.forecastday[1].day.condition.text} icon`}
+          />
+          <p>{weather?.forecast.forecastday[1].day.avgtemp_f} °F</p>
+          <p>
+            Snow: {weather?.forecast.forecastday[1].day.daily_chance_of_snow}%
+          </p>
+          <p>
+            Precip: {weather?.forecast.forecastday[1].day.totalprecip_in} in.
+          </p>
+        </div>
       </div>
     </div>
   );
