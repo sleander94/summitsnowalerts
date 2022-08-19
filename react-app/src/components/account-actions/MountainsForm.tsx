@@ -3,10 +3,23 @@ import { AuthProps, mountainsObj } from '../../types.d';
 import { mountains as mountainsRef } from '../../mountains';
 
 const MountainsForm = ({ user }: AuthProps) => {
-  useEffect(() => {
-    if (user) {
-      setMountains(user.mountains);
+  const getMountains = async () => {
+    try {
+      const response = await fetch('/users', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      setMountains(data.mountains);
+    } catch (err) {
+      console.error(err);
     }
+  };
+
+  useEffect(() => {
+    getMountains();
   }, [user]);
 
   const [mountains, setMountains] = useState<mountainsObj>();
@@ -52,7 +65,6 @@ const MountainsForm = ({ user }: AuthProps) => {
             mountains,
           }),
         });
-        console.log(response);
         if (response.ok) {
           setPostError(undefined);
           setPosted(true);
