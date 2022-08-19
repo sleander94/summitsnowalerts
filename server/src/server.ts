@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
+import compression from 'compression';
 import session from 'express-session';
 import passport from 'passport';
 import cors from 'cors';
@@ -66,6 +67,7 @@ if (process.env.NODE_ENV === 'development') {
 // Security (helmet recommended in express docs)
 if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
+  app.use(compression());
 }
 
 /***********************************************************************************
