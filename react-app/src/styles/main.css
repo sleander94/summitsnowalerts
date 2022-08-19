@@ -13,12 +13,30 @@ body {
   max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
+  background-color: #fff;
 }
 
 .App {
   display: grid;
   grid: 64px 1fr 64px/1fr;
   min-height: 100%;
+}
+
+html {
+  background-color: #eeeeee;
+}
+
+.background-image {
+  grid-area: 1/1/2/2;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/gabriel-alenius-USXfF_ONUGo-unsplash.jpg");
+  background-size: cover;
+  filter: brightness(50%);
 }
 
 button:hover {
@@ -149,24 +167,51 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 #home {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid: 10rem 1fr/1fr;
   align-items: center;
-  gap: 2rem;
   width: 100%;
   text-align: center;
   color: #151c36;
 }
-#home h2 {
-  padding: 1rem;
+#home .background-image {
+  grid-area: 1/1/3/2;
+  background-image: url("../assets/ales-krivec-gVG5k5u1Cxw-unsplash.jpg");
+  background-size: cover;
+  background-position: 50% 40%;
+  filter: brightness(50%);
+}
+#home h1 {
+  grid-area: 1/1/2/2;
+  align-self: center;
+  z-index: 2;
+  font-size: 2.8rem;
+  color: #fff;
+}
+#home .content {
+  grid-area: 2/1/3/2;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+}
+#home .content h2 {
   font-size: 1.8rem;
   color: inherit;
 }
-#home .link-container {
+#home .content p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+#home .content .link-container {
   display: flex;
   gap: 10rem;
 }
-#home a {
+#home .content a {
   font-size: 1.5rem;
   color: inherit;
   text-decoration: none;
@@ -175,83 +220,72 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: #151c36;
   padding: 12px 64px;
 }
-#home a:hover {
+#home .content a:hover {
   background-color: #5a7dc8;
-}
-#home .title {
-  display: grid;
-  width: 100%;
-  height: 40%;
-}
-#home .title h1 {
-  grid-area: 1/1/2/2;
-  align-self: center;
-  z-index: 2;
-  font-size: 2.8rem;
-  color: #fff;
-}
-#home .title .background-image {
-  grid-area: 1/1/2/2;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  background-image: url("/home/stephen/repos/snow-alerts/react-app/src/assets/ales-krivec-gVG5k5u1Cxw-unsplash.jpg");
-  background-size: cover;
-  background-position: center;
-  filter: brightness(70%);
 }
 
 @media only screen and (max-width: 640px) {
   #home h1 {
     font-size: 2.5rem;
   }
-  #home h2 {
+  #home .content h2 {
     font-size: 1.5rem;
   }
-  #home .link-container {
+  #home .content .link-container {
     flex-direction: column;
     gap: 2rem;
   }
 }
 #login,
 #signup {
+  display: grid;
+  grid: 1fr/1fr;
+}
+#login .content,
+#signup .content {
+  grid-area: 1/1/2/2;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
-  padding-top: 8rem;
   color: #151c36;
 }
-#login a,
-#signup a {
+#login .content h1,
+#signup .content h1 {
+  color: #fff;
+}
+#login .content a,
+#signup .content a {
   text-decoration: none;
   color: #151c36;
 }
-#login a:hover,
-#signup a:hover {
+#login .content a:hover,
+#signup .content a:hover {
   color: #32497b;
 }
-#login form,
-#signup form {
+#login .content form,
+#signup .content form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding: 2rem;
+  background-color: #cfdeec;
+  border: 1px solid #151c36;
 }
-#login form p,
-#signup form p {
+#login .content form p,
+#signup .content form p {
   font-size: 0.75rem;
 }
-#login .form-field,
-#signup .form-field {
+#login .content .form-field,
+#signup .content .form-field {
   display: flex;
   flex-direction: column;
 }
-#login .form-field input,
-#signup .form-field input {
+#login .content .form-field input,
+#signup .content .form-field input {
   border-radius: 0;
   border: 1px solid #151c36;
   font-size: 1rem;
@@ -259,60 +293,60 @@ Note: Beware of modifying this element as it can break the animations - you shou
   height: 1.5rem;
   -webkit-appearance: none;
 }
-#login .form-field input:focus,
-#signup .form-field input:focus {
+#login .content .form-field input:focus,
+#signup .content .form-field input:focus {
   outline: none;
   border: 1px solid #32497b;
   box-shadow: 0 0 5px #32497b;
 }
-#login .form-field input.touched:invalid,
-#signup .form-field input.touched:invalid {
+#login .content .form-field input.touched:invalid,
+#signup .content .form-field input.touched:invalid {
   border: 1px solid red;
 }
-#login .form-field input.touched:invalid:focus,
-#signup .form-field input.touched:invalid:focus {
+#login .content .form-field input.touched:invalid:focus,
+#signup .content .form-field input.touched:invalid:focus {
   box-shadow: 0 0 5px red;
 }
-#login .form-field p.error,
-#signup .form-field p.error {
+#login .content .form-field p.error,
+#signup .content .form-field p.error {
   max-width: 250px;
   color: red;
 }
-#login .form-field-check,
-#signup .form-field-check {
+#login .content .form-field-check,
+#signup .content .form-field-check {
   display: flex;
   gap: 1rem;
   padding: 0.5rem;
 }
-#login .checkbox-msg,
-#signup .checkbox-msg {
+#login .content .checkbox-msg,
+#signup .content .checkbox-msg {
   text-align: center;
   font-style: italic;
 }
-#login button,
-#signup button {
+#login .content button,
+#signup .content button {
+  border: 1px solid #151c36;
   background-color: #151c36;
   color: #fff;
   padding: 6px 48px;
   height: 40px;
   font-size: 1.2rem;
 }
-#login button:hover,
-#signup button:hover {
+#login .content button:hover,
+#signup .content button:hover {
   cursor: pointer;
-  color: #151c36;
-  background-color: #abb1bc;
+  background-color: #5a7dc8;
 }
-#login .posting,
-#signup .posting {
+#login .content .posting,
+#signup .content .posting {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 6px 48px;
   height: 40px;
 }
-#login .posting .spinner,
-#signup .posting .spinner {
+#login .content .posting .spinner,
+#signup .content .posting .spinner {
   border: 2px solid #fff;
   border-top: 2px solid #151c36;
   border-right: 2px solid #151c36;
@@ -322,17 +356,15 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -webkit-animation: spin 1.2s linear infinite;
           animation: spin 1.2s linear infinite;
 }
-#login .response,
-#signup .response {
+#login .content .response,
+#signup .content .response {
   color: red;
 }
 
-@media only screen and (max-width: 640px) {
-  #signup,
-#login {
-    padding-top: 2rem;
-  }
+#login .content {
+  padding-bottom: 5rem;
 }
+
 @-webkit-keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -341,6 +373,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     transform: rotate(360deg);
   }
 }
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -350,8 +383,19 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 #account {
+  display: grid;
+  grid: 1fr/1fr;
+}
+#account .content {
+  grid-area: 1/1/2/2;
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  color: #fff;
+  z-index: 2;
 }
 
 #account-info-form {
@@ -360,7 +404,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  color: #151c36;
+  color: #fff;
+}
+#account-info-form h1 {
+  font-size: 1.5rem;
 }
 #account-info-form a:hover {
   color: #32497b;
@@ -373,6 +420,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   width: 100%;
   max-width: 700px;
   border: 1px solid #151c36;
+  color: #151c36;
+  background-color: #cfdeec;
 }
 #account-info-form form p {
   font-size: 1rem;
@@ -521,7 +570,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   width: 100%;
   gap: 1rem;
   padding: 1rem;
-  color: #151c36;
+  color: #fff;
+}
+#mountains-form h1 {
+  font-size: 1.5rem;
 }
 #mountains-form a:hover {
   color: #32497b;
@@ -530,21 +582,27 @@ Note: Beware of modifying this element as it can break the animations - you shou
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 2rem;
   padding: 2rem 4rem;
   width: 100%;
   max-width: 700px;
   border: 1px solid #151c36;
+  background-color: #cfdeec;
+  color: #151c36;
 }
 #mountains-form form p {
   font-size: 1rem;
+}
+#mountains-form form ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 #mountains-form .form-field {
   display: grid;
   grid: 1fr/1fr 1fr 1fr;
   align-items: center;
   gap: 0;
-  padding-top: 2rem;
   width: 100%;
 }
 #mountains-form .form-field label {
@@ -583,30 +641,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 #mountains-form .form-field button {
   grid-area: 1/3/2/4;
   justify-self: end;
-  padding: 0;
-  width: 48px;
   height: 24px;
-  font-size: 0.75rem;
-}
-#mountains-form .form-field button.submit {
   width: 64px;
 }
-#mountains-form .form-field-check {
-  display: grid;
-  grid: 1fr/1rem 1fr;
-  align-items: center;
-  width: 50%;
-  gap: 1rem;
-  padding: 0.5rem;
-}
 #mountains-form button {
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  font-size: 0.75rem;
   color: #fff;
   background-color: #151c36;
   border: 1px solid #151c36;
-  font-size: 1rem;
-  padding: 0;
-  width: 48px;
-  height: 24px;
 }
 #mountains-form button:hover {
   background-color: #5a7dc8;
@@ -675,30 +720,66 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .mountain-weather {
   display: grid;
+  grid: 1/1/2/2;
+}
+.mountain-weather .background-image {
+  background-image: none;
+  /*  background-image: url('../assets/snow-falling.jpg'); */
+}
+.mountain-weather .weather-content {
+  grid-area: 1/1/2/2;
+  z-index: 2;
+  display: grid;
   grid: 3rem 1fr/1fr 1fr;
   width: 100%;
+  min-width: 500px;
   max-width: 600px;
   padding: 1rem;
   text-align: center;
   color: #151c36;
+  background-color: #cfdeec;
   border: 1px solid #151c36;
 }
-.mountain-weather h2 {
+.mountain-weather .weather-content h2 {
   grid-area: 1/1/2/3;
 }
-.mountain-weather .current-conditions {
+.mountain-weather .weather-content .current-conditions {
   grid-area: 2/1/3/2;
 }
-.mountain-weather .forecast {
+.mountain-weather .weather-content .forecast {
   grid-area: 2/2/3/3;
 }
 
+@media only screen and (max-width: 640px) {
+  .mountain-weather .weather-content {
+    min-width: 320px;
+  }
+}
 #conditions {
+  display: grid;
+  grid: 1fr/1fr;
+}
+#conditions .content {
+  grid-area: 1/1/2/2;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
   padding: 2rem;
+  color: #fff;
+  z-index: 2;
+}
+#conditions .content h2.no-user {
+  margin-top: 10rem;
+  text-align: center;
+}
+#conditions .content .weather {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
 }
 
 #footer {
@@ -709,13 +790,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
   padding: 1rem;
   width: 100%;
   height: 64px;
-  /*   a img {
-    filter: invert(71%) sepia(73%) saturate(2965%) hue-rotate(319deg)
-      brightness(102%) contrast(90%);
-  } */
+  background-color: #151c36;
+  color: #fff;
 }
 #footer img,
 #footer a {
   width: 24px;
   height: 24px;
+}
+#footer a img {
+  filter: invert(100%) sepia(0%) saturate(5117%) hue-rotate(199deg) brightness(106%) contrast(107%);
 }/*# sourceMappingURL=main.css.map */
