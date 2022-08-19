@@ -3,9 +3,13 @@
   "compilerOptions": {
     "sourceMap": false
   },
-  "exclude": [
-    "spec",
-    "src/**/*.mock.ts",
-    "src/public/"
-  ]
+  "paths": {
+    "@repos/*": ["src/repos/*"],
+    "@models/*": ["src/models/*"],
+    "@shared/*": ["src/shared/*"],
+    "@server": ["src/server"],
+    "@services/*": ["src/services/*"],
+    "@routes/*": ["src/routes/*"]
+  },
+  "exclude": ["spec", "src/**/*.mock.ts", "src/public/"]
 }
