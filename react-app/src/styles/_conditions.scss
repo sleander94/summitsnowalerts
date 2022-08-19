@@ -1,7 +1,26 @@
 #conditions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
+  display: grid;
+  grid: 1fr / 1fr;
+  .content {
+    grid-area: 1 / 1 / 2 / 2;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    color: #fff;
+    z-index: 2;
+    h2.no-user {
+      margin-top: 10rem;
+      text-align: center;
+    }
+    .weather {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
