@@ -100,7 +100,7 @@ app.use(express.static(staticDir));
 /***********************************************************************************
  *                                  Alert Functions
  **********************************************************************************/
-
+console.log('test');
 // Send daily text alert at 6:00 MDT
 cron.schedule(
   '0 18 * * *',
@@ -115,7 +115,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  '59 * * * *',
+  '* * * * *',
   () => {
     console.log('Scheduled Alert - 30min test');
     sendTextAlerts();
