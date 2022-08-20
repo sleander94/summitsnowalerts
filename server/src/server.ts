@@ -115,7 +115,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  '0 18 * * *',
+  '59 * * * *',
   () => {
     console.log('Scheduled Alert - 30min test');
     sendTextAlerts();
