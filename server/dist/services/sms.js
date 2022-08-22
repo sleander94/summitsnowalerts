@@ -105,14 +105,13 @@ function sendTextAlerts() {
                 precip: aspenWeather.forecast.forecastday[0].day.totalprecip_in,
             };
             console.log('Weather ready, sending to users...');
-            weather['Keystone'].snow = 1;
             // Send texts to users with mountains receiving snow
             const results = yield user_1.default.find({});
             for (const user of results) {
                 if (user.textAlert && user.phone) {
                     let keys = Object.keys(user.mountains);
                     for (const mountain of keys) {
-                        if (weather[mountain].snow == 1) {
+                        if (weather[mountain].snow == 1 || weather[mountain].snow == 0) {
                             const body = `Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
                             client.messages.create({
                                 body: body,

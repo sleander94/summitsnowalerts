@@ -77,9 +77,8 @@ app.use((err, _, res, __) => {
 const staticDir = path_1.default.join(__dirname, 'public');
 app.use(express_1.default.static(staticDir));
 /***********************************************************************************
- *                                  Alert Functions
+ *                                  Alert Functionspm2 start npm --name "app name" -- start
  **********************************************************************************/
-console.log('test');
 // Send daily text alert at 6:00 MDT
 node_cron_1.default.schedule('0 18 * * *', () => {
     console.log('Scheduled Alert - 6:00PM MDT');
@@ -88,8 +87,8 @@ node_cron_1.default.schedule('0 18 * * *', () => {
     scheduled: true,
     timezone: 'America/Denver',
 });
-node_cron_1.default.schedule('* * * * *', () => {
-    console.log('Scheduled Alert - 30min test');
+node_cron_1.default.schedule('0 * * * *', () => {
+    console.log('Scheduled Alert - hourly test');
     (0, sms_1.sendTextAlerts)();
 }, {
     scheduled: true,
