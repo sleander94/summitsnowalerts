@@ -105,8 +105,6 @@ export async function sendTextAlerts() {
     };
     console.log('Weather ready, sending to users...');
 
-    weather['Keystone'].snow = 1;
-
     // Send texts to users with mountains receiving snow
     const results = await User.find({});
     for (const user of results) {
@@ -115,7 +113,7 @@ export async function sendTextAlerts() {
           user.mountains
         ) as (keyof mountainsObj)[];
         for (const mountain of keys) {
-          if (weather[mountain].snow == 1) {
+          if (weather[mountain].snow == 1 || weather[mountain].snow == 0) {
             const body = `Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
             client.messages.create({
               body: body,
