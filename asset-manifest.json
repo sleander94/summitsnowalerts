@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.609a46c1.css",
+    "main.js": "/static/js/main.e18f1b70.js",
+    "static/media/gabriel-alenius-USXfF_ONUGo-unsplash.jpg": "/static/media/gabriel-alenius-USXfF_ONUGo-unsplash.9d013d6eff2fdd6e4215.jpg",
+    "static/media/ales-krivec-gVG5k5u1Cxw-unsplash.jpg": "/static/media/ales-krivec-gVG5k5u1Cxw-unsplash.484f6ea8bacf71772bb3.jpg",
+    "static/media/snowy-mountains-svgrepo-com.svg": "/static/media/snowy-mountains-svgrepo-com.3830940224f5a9cff9f02d983dca13f6.svg",
+    "static/media/icons8-edit.svg": "/static/media/icons8-edit.d80a04231c50ccc5203c2d4e99c57746.svg",
+    "static/media/iconmonstr-github-1.svg": "/static/media/iconmonstr-github-1.04be58c17b3d5e9744424d414240dd85.svg",
+    "index.html": "/index.html",
+    "static/media/icons8-done.svg": "/static/media/icons8-done.a5dd14058d89313e45ed4c946a84b6b0.svg",
+    "main.609a46c1.css.map": "/static/css/main.609a46c1.css.map",
+    "main.e18f1b70.js.map": "/static/js/main.e18f1b70.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.609a46c1.css",
+    "static/js/main.e18f1b70.js"
+  ]
+}
