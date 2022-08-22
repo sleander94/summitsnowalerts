@@ -98,9 +98,9 @@ const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
 
 /***********************************************************************************
- *                                  Alert Functions
+ *                                  Alert Functionspm2 start npm --name "app name" -- start
  **********************************************************************************/
-console.log('test');
+
 // Send daily text alert at 6:00 MDT
 cron.schedule(
   '0 18 * * *',
@@ -115,9 +115,9 @@ cron.schedule(
 );
 
 cron.schedule(
-  '* * * * *',
+  '0 * * * *',
   () => {
-    console.log('Scheduled Alert - 30min test');
+    console.log('Scheduled Alert - hourly test');
     sendTextAlerts();
   },
   {
