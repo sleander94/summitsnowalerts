@@ -6,7 +6,7 @@ const MountainWeather = ({ name, location }: WeatherProps) => {
 
   const getConditions = async (location: number) => {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`
     );
     const data = await response.json();
     setWeather(data);
