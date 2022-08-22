@@ -5,12 +5,15 @@ import { mountains as mountainsRef } from '../../mountains';
 const MountainsForm = ({ user }: AuthProps) => {
   const getMountains = async () => {
     try {
-      const response = await fetch('/users', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_PRODUCTION_API}/users`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const data = await response.json();
       setMountains(data.mountains);
     } catch (err) {
@@ -50,21 +53,24 @@ const MountainsForm = ({ user }: AuthProps) => {
     if (user) {
       try {
         setPosting(true);
-        const response = await fetch('/users', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            emailAlert: user.emailAlert,
-            textAlert: user.textAlert,
-            password,
-            mountains,
-          }),
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_PRODUCTION_API}/users`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              emailAlert: user.emailAlert,
+              textAlert: user.textAlert,
+              password,
+              mountains,
+            }),
+          }
+        );
         if (response.ok) {
           setPostError(undefined);
           setPosted(true);

@@ -16,16 +16,19 @@ const Login = ({ user, getUser }: AuthProps) => {
     e.preventDefault();
     try {
       setPosting(true);
-      const response = await fetch('/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_PRODUCTION_API}/users/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
       const data = await response.json();
       if (getUser) getUser(data.user);
       if (response.ok) {

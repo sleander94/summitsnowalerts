@@ -7,12 +7,15 @@ const Conditions = ({ user }: AuthProps) => {
 
   const getMountains = async () => {
     try {
-      const response = await fetch('/users', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_PRODUCTION_API}/users`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const data = await response.json();
       setMountains(data.mountains);
     } catch (err) {
