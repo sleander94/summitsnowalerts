@@ -4,7 +4,7 @@
 
 
 <p align="left" width="100%">
-    <img width="60%" src="/public/images/summitsnowalerts-desktop.png" alt="desktop preview">
+    <img width="60%" src="/client/public/images/summitsnowalerts-desktop.png" alt="desktop preview">
 </p>
 
 Get notified of snow at your favorite ski resorts.
