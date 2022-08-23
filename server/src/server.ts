@@ -18,7 +18,7 @@ import userRouter from './routes/users';
 import logger from 'jet-logger';
 import { CustomError } from '@shared/errors';
 
-import { sendTextAlerts } from './services/sms';
+import { sendTextAlerts } from './services/alerts';
 
 import mongoose, { ConnectOptions } from 'mongoose';
 
@@ -98,7 +98,7 @@ const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
 
 /***********************************************************************************
- *                                  Alert Functionspm2 start npm --name "app name" -- start
+ *                                  Alert Functions
  **********************************************************************************/
 
 // Send daily text alert at 6:00 MDT
