@@ -38,7 +38,6 @@ const Conditions = ({ user }: AuthProps) => {
           {mountains &&
             Object.keys(mountains).map((key) => {
               const mountain = key as keyof mountainsObj;
-              if (mountains[mountain] == undefined) return;
               return (
                 <MountainWeather
                   key={mountain}

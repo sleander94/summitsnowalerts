@@ -13,7 +13,7 @@ const MountainWeather = ({ name, location }: WeatherProps) => {
   };
   useEffect(() => {
     getConditions(location);
-  }, []);
+  }, [location]);
   return (
     <div className="mountain-weather">
       <div className="background-image"></div>

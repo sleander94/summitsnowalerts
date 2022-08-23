@@ -20,6 +20,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
           src={
             require('../assets/icons/snowy-mountains-svgrepo-com.svg').default
           }
+          alt=""
         />
         <h1>Summit Snow Alerts</h1>
       </Link>

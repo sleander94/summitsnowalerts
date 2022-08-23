@@ -131,7 +131,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       const target = e.target as HTMLInputElement;
       target.blur();
     }
@@ -150,6 +150,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               <button type="button" onClick={() => setEditName(true)}>
                 <img
                   src={require('../../assets/icons/icons8-edit.svg').default}
+                  alt="Edit"
                 ></img>
               </button>
             </>
@@ -175,6 +176,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               >
                 <img
                   src={require('../../assets/icons/icons8-done.svg').default}
+                  alt="Done"
                 ></img>
               </button>
             </>
@@ -188,6 +190,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               <button type="button" onClick={() => setEditEmail(true)}>
                 <img
                   src={require('../../assets/icons/icons8-edit.svg').default}
+                  alt="Edit"
                 ></img>
               </button>
             </>
@@ -213,6 +216,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               >
                 <img
                   src={require('../../assets/icons/icons8-done.svg').default}
+                  alt="Done"
                 ></img>
               </button>
             </>
@@ -226,6 +230,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               <button type="button" onClick={() => setEditPhone(true)}>
                 <img
                   src={require('../../assets/icons/icons8-edit.svg').default}
+                  alt="Edit"
                 ></img>
               </button>
             </>
@@ -251,6 +256,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               >
                 <img
                   src={require('../../assets/icons/icons8-done.svg').default}
+                  alt="Done"
                 ></img>
               </button>
             </>
@@ -264,6 +270,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               <button type="button" onClick={() => setEditPass(true)}>
                 <img
                   src={require('../../assets/icons/icons8-edit.svg').default}
+                  alt="Edit"
                 ></img>
               </button>
             </>
@@ -290,6 +297,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               >
                 <img
                   src={require('../../assets/icons/icons8-done.svg').default}
+                  alt="Done"
                 ></img>
               </button>
             </>
