@@ -114,17 +114,5 @@ cron.schedule(
   }
 );
 
-cron.schedule(
-  '0 * * * *',
-  () => {
-    console.log('Scheduled Alert - hourly test');
-    sendTextAlerts();
-  },
-  {
-    scheduled: true,
-    timezone: 'America/Denver',
-  }
-);
-
 // Export here and start in a diff file (for testing).
 export default app;
