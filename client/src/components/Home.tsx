@@ -11,7 +11,7 @@ const Home = ({ user }: AuthProps) => {
           Never miss a storm. Get text notifications for your favorite
           mountains.
         </h2>
-        {user && <p>Welcome back, {user.name}.</p>}
+        {user && <p>Welcome back, {user.name.split(' ')[0]}.</p>}
         {!user && (
           <div className="link-container">
             <Link to="/signup">Sign Up</Link>
