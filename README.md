@@ -15,8 +15,8 @@ Get notified of snow at your favorite ski resorts.
 - Update your account information and selected mountains on one page
 - Receive alerts the night before a storm via your selected method(s)
 - Alert scheduling handled with cron
-- Text alerts send with Twilio
-- Email alerts send with nodemailer
+- Text alerts sent with Twilio
+- Email alerts sent with nodemailer
 - Weather information provided by Weather API
 - Hosted on DigitalOcean Droplet
 
