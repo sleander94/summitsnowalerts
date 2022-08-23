@@ -113,8 +113,8 @@ export async function sendTextAlerts() {
           user.mountains
         ) as (keyof mountainsObj)[];
         for (const mountain of keys) {
-          if (weather[mountain].snow == 1 || weather[mountain].snow == 0) {
-            const body = `Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
+          if (weather[mountain].snow == 1) {
+            const body = `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
             client.messages.create({
               body: body,
               from: twilioNumber,
@@ -124,6 +124,12 @@ export async function sendTextAlerts() {
         }
       }
     }
+
+    client.messages.create({
+      body: 'Server is sending alerts',
+      from: twilioNumber,
+      to: myNumber,
+    });
   } catch (err) {
     console.error(err);
   }
