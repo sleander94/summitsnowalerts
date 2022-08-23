@@ -3,7 +3,6 @@
   grid: 1 / 1 / 2 / 2;
   .background-image {
     background-image: none;
-    /*  background-image: url('../assets/snow-falling.jpg'); */
   }
   .weather-content {
     grid-area: 1 / 1 / 2 / 2;
@@ -23,9 +22,11 @@
     }
     .current-conditions {
       grid-area: 2 / 1 / 3 / 2;
+      padding-right: 8px;
     }
     .forecast {
       grid-area: 2 / 2 / 3 / 3;
+      padding-left: 0px 8px;
     }
   }
 }
