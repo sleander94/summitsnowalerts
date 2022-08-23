@@ -1,5 +1,6 @@
 require('dotenv').config({ path: '../../.env' });
 import User, { mountainsObj } from '../models/user';
+import nodemailer from 'nodemailer';
 const fetch = require('node-fetch-commonjs');
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -7,6 +8,14 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 const myNumber = process.env.MY_PHONE_NUMBER;
 const client = require('twilio')(accountSid, authToken);
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'summitsnowalerts@gmail.com',
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 const getWeather = async (location: number) => {
   const response = await fetch(
@@ -108,18 +117,36 @@ export async function sendTextAlerts() {
     // Send texts to users with mountains receiving snow
     const results = await User.find({});
     for (const user of results) {
-      if (user.textAlert && user.phone) {
+      if (
+        user.emailAlert === true ||
+        (user.textAlert === true && user.phone.length > 0)
+      ) {
         let keys: (keyof mountainsObj)[] = Object.keys(
           user.mountains
         ) as (keyof mountainsObj)[];
         for (const mountain of keys) {
           if (weather[mountain].snow == 1) {
-            const body = `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
-            client.messages.create({
-              body: body,
-              from: twilioNumber,
-              to: user.phone,
-            });
+            if (user.textAlert === true && user.phone.length > 0) {
+              const body = `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
+              client.messages.create({
+                body: body,
+                from: twilioNumber,
+                to: user.phone,
+              });
+            }
+            if (user.emailAlert === true) {
+              const mailOptions = {
+                from: 'summitsnowalerts@gmail.com',
+                to: user.email,
+                subject: `Summit Snow Alerts: Powder Alert for ${mountain}`,
+                text: `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Visit summitsnowalerts.com to unsubscribe.`,
+              };
+              transporter.sendMail(mailOptions, (error) => {
+                if (error) {
+                  console.error(error);
+                }
+              });
+            }
           }
         }
       }
@@ -131,6 +158,11 @@ export async function sendTextAlerts() {
       to: myNumber,
     });
   } catch (err) {
+    client.messages.create({
+      body: `Error sending snow alerts: ${err}`,
+      from: twilioNumber,
+      to: myNumber,
+    });
     console.error(err);
   }
 }
