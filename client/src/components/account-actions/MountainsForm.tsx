@@ -12,7 +12,7 @@ const MountainsForm = ({ user }: AuthProps) => {
         },
       });
       const data = await response.json();
-      setMountains(data.mountains);
+      data.mountains ? setMountains(data.mountains) : setMountains({});
     } catch (err) {
       console.error(err);
     }
@@ -25,8 +25,9 @@ const MountainsForm = ({ user }: AuthProps) => {
   const [mountains, setMountains] = useState<mountainsObj>();
   const [password, setPassword] = useState<string>('');
 
-  const [selectedMountain, setSelectedMountain] =
-    useState<keyof mountainsObj>('Breckenridge');
+  const [selectedMountain, setSelectedMountain] = useState<keyof mountainsObj>(
+    Object.keys(mountainsRef).sort()[0] as keyof mountainsObj
+  );
 
   const addMountain = (mountain: keyof mountainsObj) => {
     let tempMountains = mountains as mountainsObj;
