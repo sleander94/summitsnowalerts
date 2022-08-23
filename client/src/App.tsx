@@ -21,15 +21,12 @@ const App = () => {
     if (!user) {
       const checkAuth = async () => {
         try {
-          const response = await fetch(
-            `${process.env.REACT_APP_PRODUCTION_API}/users`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          );
+          const response = await fetch('/users', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
           const data = await response.json();
           if (response.ok) setUser(data);
           else setUser(undefined);
@@ -43,15 +40,12 @@ const App = () => {
 
   const logout = async () => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_PRODUCTION_API}/users/logout`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch('/users/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.ok) setUser(undefined);
     } catch (err) {
       console.error(err);

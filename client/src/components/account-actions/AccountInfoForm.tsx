@@ -5,15 +5,12 @@ import { AuthProps } from '../../types.d';
 const AccountInfoForm = ({ user }: AuthProps) => {
   const getAccountInfo = async () => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_PRODUCTION_API}/users`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch('/users', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await response.json();
       setName(data.name);
       setEmail(data.email);
@@ -101,26 +98,23 @@ const AccountInfoForm = ({ user }: AuthProps) => {
     if (!error) {
       try {
         setPosting(true);
-        const response = await fetch(
-          `${process.env.REACT_APP_PRODUCTION_API}/users`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name,
-              email,
-              newEmail,
-              phone,
-              newPass,
-              emailAlert,
-              textAlert,
-              password,
-              mountains,
-            }),
-          }
-        );
+        const response = await fetch('/users', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            newEmail,
+            phone,
+            newPass,
+            emailAlert,
+            textAlert,
+            password,
+            mountains,
+          }),
+        });
         if (response.ok) {
           setPostError(undefined);
           setPosted(true);

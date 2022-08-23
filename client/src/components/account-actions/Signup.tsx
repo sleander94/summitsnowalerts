@@ -25,23 +25,20 @@ const Signup = () => {
     e.preventDefault();
     try {
       setPosting(true);
-      const response = await fetch(
-        `${process.env.REACT_APP_PRODUCTION_API}/users/signup`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            phone,
-            password,
-            emailAlert,
-            textAlert,
-          }),
-        }
-      );
+      const response = await fetch('/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          password,
+          emailAlert,
+          textAlert,
+        }),
+      });
       if (response.ok) {
         setPostResponse(undefined);
         setPosted(true);
