@@ -167,13 +167,13 @@ const Signup = () => {
               <div className="spinner"></div>
             </div>
           )}
+          {postResponse && <p className="response">{postResponse}</p>}
+          {posted && (
+            <Link to="/login" className="login">
+              Account successfully created. Log In
+            </Link>
+          )}
         </form>
-        {postResponse && <p className="response">{postResponse}</p>}
-        {posted && (
-          <Link to="/login" className="login">
-            Account successfully created. Log In
-          </Link>
-        )}
       </div>
     </section>
   );

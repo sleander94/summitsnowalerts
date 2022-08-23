@@ -92,8 +92,8 @@ const Login = ({ user, getUser }: AuthProps) => {
               <div className="spinner"></div>
             </div>
           )}
+          {postResponse && <p className="response">{postResponse}</p>}
         </form>
-        {postResponse && <p className="response">{postResponse}</p>}
       </div>
     </section>
   );
