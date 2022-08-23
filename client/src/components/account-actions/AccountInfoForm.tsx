@@ -18,7 +18,6 @@ const AccountInfoForm = ({ user }: AuthProps) => {
       setPhone(data.phone);
       setEmailAlert(data.emailAlert);
       setTextAlert(data.textAlert);
-      setMountains(data.mountains);
     } catch (err) {
       console.error(err);
     }
@@ -30,7 +29,6 @@ const AccountInfoForm = ({ user }: AuthProps) => {
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>('');
-  const [mountains, setMountains] = useState<Object>();
 
   const [name, setName] = useState<string>();
   const [newEmail, setNewEmail] = useState<string>();
@@ -112,7 +110,6 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             emailAlert,
             textAlert,
             password,
-            mountains,
           }),
         });
         if (response.ok) {
