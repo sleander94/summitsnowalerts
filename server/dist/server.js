@@ -20,7 +20,7 @@ require("express-async-errors");
 const users_1 = __importDefault(require("./routes/users"));
 const jet_logger_1 = __importDefault(require("jet-logger"));
 const errors_1 = require("@shared/errors");
-const sms_1 = require("./services/sms");
+const alerts_1 = require("./services/alerts");
 const mongoose_1 = __importDefault(require("mongoose"));
 // Constants
 const app = (0, express_1.default)();
@@ -77,19 +77,12 @@ app.use((err, _, res, __) => {
 const staticDir = path_1.default.join(__dirname, 'public');
 app.use(express_1.default.static(staticDir));
 /***********************************************************************************
- *                                  Alert Functionspm2 start npm --name "app name" -- start
+ *                                  Alert Functions
  **********************************************************************************/
 // Send daily text alert at 6:00 MDT
 node_cron_1.default.schedule('0 18 * * *', () => {
     console.log('Scheduled Alert - 6:00PM MDT');
-    (0, sms_1.sendTextAlerts)();
-}, {
-    scheduled: true,
-    timezone: 'America/Denver',
-});
-node_cron_1.default.schedule('0 * * * *', () => {
-    console.log('Scheduled Alert - hourly test');
-    (0, sms_1.sendTextAlerts)();
+    (0, alerts_1.sendTextAlerts)();
 }, {
     scheduled: true,
     timezone: 'America/Denver',

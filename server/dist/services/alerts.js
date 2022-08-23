@@ -15,12 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendTextAlerts = void 0;
 require('dotenv').config({ path: '../../.env' });
 const user_1 = __importDefault(require("../models/user"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
 const fetch = require('node-fetch-commonjs');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 const myNumber = process.env.MY_PHONE_NUMBER;
 const client = require('twilio')(accountSid, authToken);
+const transporter = nodemailer_1.default.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'summitsnowalerts@gmail.com',
+        pass: process.env.EMAIL_PASS,
+    },
+});
 const getWeather = (location) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`);
     const data = yield response.json();
@@ -108,22 +116,48 @@ function sendTextAlerts() {
             // Send texts to users with mountains receiving snow
             const results = yield user_1.default.find({});
             for (const user of results) {
-                if (user.textAlert && user.phone) {
+                if (user.emailAlert === true ||
+                    (user.textAlert === true && user.phone.length > 0)) {
                     let keys = Object.keys(user.mountains);
                     for (const mountain of keys) {
-                        if (weather[mountain].snow == 1 || weather[mountain].snow == 0) {
-                            const body = `Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
-                            client.messages.create({
-                                body: body,
-                                from: twilioNumber,
-                                to: user.phone,
-                            });
+                        if (weather[mountain].snow == 1) {
+                            if (user.textAlert === true && user.phone.length > 0) {
+                                const body = `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
+                                client.messages.create({
+                                    body: body,
+                                    from: twilioNumber,
+                                    to: user.phone,
+                                });
+                            }
+                            if (user.emailAlert === true) {
+                                const mailOptions = {
+                                    from: 'summitsnowalerts@gmail.com',
+                                    to: user.email,
+                                    subject: `Summit Snow Alerts: Powder Alert for ${mountain}`,
+                                    text: `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Visit summitsnowalerts.com to unsubscribe.`,
+                                };
+                                transporter.sendMail(mailOptions, (error) => {
+                                    if (error) {
+                                        console.error(error);
+                                    }
+                                });
+                            }
                         }
                     }
                 }
             }
+            client.messages.create({
+                body: 'Server is sending alerts',
+                from: twilioNumber,
+                to: myNumber,
+            });
         }
         catch (err) {
+            client.messages.create({
+                body: `Error sending snow alerts: ${err}`,
+                from: twilioNumber,
+                to: myNumber,
+            });
             console.error(err);
         }
     });
