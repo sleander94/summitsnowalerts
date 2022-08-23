@@ -3,12 +3,12 @@ const Footer = () => {
   return (
     <footer id="footer">
       <p>© 2022 Summit Snow Alerts</p>
-      <Link to="https://github.com/sleander94">
+      <a href="https://github.com/sleander94/summitsnowalerts" target="_blank">
         <img
           src={require('../assets/icons/iconmonstr-github-1.svg').default}
           alt=""
         />
-      </Link>
+      </a>
     </footer>
   );
 };
