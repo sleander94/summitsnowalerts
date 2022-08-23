@@ -4,6 +4,11 @@ import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
+const client = require('twilio')(accountSid, authToken);
+
 exports.signup_post = [
   body('name', 'Enter your name.').trim().isLength({ min: 1 }).escape(),
   body('email', 'Enter a valid email.').trim().isLength({ min: 1 }).escape(),
@@ -30,7 +35,7 @@ exports.signup_post = [
         password: hashedPassword,
         emailAlert: req.body.emailAlert,
         textAlert: req.body.textAlert,
-        mountains: { Vail: 0, Keystone: 0, Breckenridge: 0 },
+        mountains: {},
       });
       User.findOne({ email: user.email }).exec((err, results) => {
         if (err) {
@@ -45,6 +50,13 @@ exports.signup_post = [
         user.save((err, user) => {
           if (err) {
             return next(err);
+          }
+          if (user.textAlert === true && user.phone.length > 0) {
+            client.messages.create({
+              body: 'You have successfully signed up for Summit Snow Alerts. Happy shredding! Go to summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.',
+              from: twilioNumber,
+              to: user.phone,
+            });
           }
           return res
             .status(200)
@@ -136,11 +148,36 @@ exports.user_put = [
             password: hashedPassword,
             emailAlert: req.body.emailAlert,
             textAlert: req.body.textAlert,
-            mountains: req.body.mountains,
+            mountains: req.body.mountains ? req.body.mountains : user.mountains,
           });
           User.findByIdAndUpdate(req.user?._id, updatedUser, {}, (err) => {
             if (err) {
               return next(err);
+            }
+            if (
+              updatedUser.textAlert === true &&
+              updatedUser.phone.length > 0 &&
+              Object.keys(updatedUser.mountains).length > 0 &&
+              (Object.keys(user.mountains).sort().join('') !==
+                Object.keys(updatedUser.mountains).sort().join('') ||
+                user.textAlert !== updatedUser.textAlert)
+            ) {
+              let mountainNames = Object.keys(updatedUser.mountains);
+              let mountainString = '';
+              if (mountainNames.length > 2) {
+                mountainNames[mountainNames.length - 1] =
+                  'and ' + mountainNames[mountainNames.length - 1];
+                mountainString = mountainNames.join(', ');
+              } else if (mountainNames.length === 2) {
+                mountainString = mountainNames.join(' and ');
+              } else {
+                mountainString = mountainNames.join('');
+              }
+              client.messages.create({
+                body: `Summit Snow Alerts: Test Alert. You are currently receiving alerts for ${mountainString}. Go to summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
+                from: twilioNumber,
+                to: user.phone,
+              });
             }
             return res
               .status(200)
