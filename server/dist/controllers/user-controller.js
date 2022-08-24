@@ -60,7 +60,7 @@ exports.signup_post = [
                     if (err) {
                         return next(err);
                     }
-                    const body = 'You have successfully signed up for Summit Snow Alerts. Happy shredding! Go to summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.';
+                    const body = 'You have successfully signed up for Summit Snow Alerts. Happy shredding! Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.';
                     if (user.textAlert === true && user.phone.length > 0) {
                         client.messages.create({
                             body: body,
@@ -196,7 +196,7 @@ exports.user_put = [
                             user.textAlert !== updatedUser.textAlert ||
                             user.phone !== updatedUser.phone)) {
                         client.messages.create({
-                            body: `Summit Snow Alerts: Test Alert. You are currently receiving text alerts for ${mountainString}. Go to summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
+                            body: `Summit Snow Alerts: Test Alert. You are currently receiving text alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
                             from: twilioNumber,
                             to: user.phone,
                         });
@@ -209,7 +209,7 @@ exports.user_put = [
                             from: 'summitsnowalerts@gmail.com',
                             to: user.email,
                             subject: 'Summit Snow Alerts: Test Alert',
-                            text: `Summit Snow Alerts: Test Alert. You are currently receiving email alerts for ${mountainString}. Go to summitsnowalerts.com to update your settings or unsubscribe.`,
+                            text: `Summit Snow Alerts: Test Alert. You are currently receiving email alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings or unsubscribe.`,
                         };
                         transporter.sendMail(mailOptions, (error) => {
                             if (error) {
