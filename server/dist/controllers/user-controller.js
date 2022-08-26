@@ -101,6 +101,7 @@ exports.login_post = (req, res, next) => {
             if (err) {
                 return res.send(err);
             }
+            user.password = '';
             return res.status(200).json({
                 message: 'Logged in successfully.',
                 user,
@@ -124,6 +125,9 @@ exports.user_get = (req, res, next) => {
             if (err) {
                 return next(err);
             }
+            if (results)
+                results.password = '';
+            console.log(results);
             res.status(200).json(results);
         });
     }
