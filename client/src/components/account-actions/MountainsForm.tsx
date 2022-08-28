@@ -95,7 +95,6 @@ const MountainsForm = ({ user }: AuthProps) => {
             value={selectedMountain}
             onChange={(e) => {
               setSelectedMountain(e.target.value as keyof mountainsObj);
-              console.log(selectedMountain);
             }}
           >
             {Object.keys(mountainsRef)
