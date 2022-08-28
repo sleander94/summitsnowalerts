@@ -53,6 +53,8 @@ const Login = ({ user, getUser }: AuthProps) => {
           <div className="form-field">
             <label htmlFor="email">Email *</label>
             <input
+              id="email"
+              aria-label="email"
               type="email"
               name="email"
               required
@@ -71,6 +73,8 @@ const Login = ({ user, getUser }: AuthProps) => {
           <div className="form-field">
             <label htmlFor="password">Password *</label>
             <input
+              id="password"
+              aria-label="password"
               type="password"
               name="password"
               required
