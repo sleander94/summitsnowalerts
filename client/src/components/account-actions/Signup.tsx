@@ -64,6 +64,8 @@ const Signup = () => {
           <div className="form-field">
             <label htmlFor="name">Name *</label>
             <input
+              id="name"
+              aria-label="name"
               type="text"
               name="name"
               required
@@ -80,6 +82,8 @@ const Signup = () => {
           <div className="form-field">
             <label htmlFor="email">Email *</label>
             <input
+              id="email"
+              aria-label="email"
               type="email"
               name="email"
               required
@@ -98,6 +102,8 @@ const Signup = () => {
           <div className="form-field">
             <label htmlFor="phone">Phone</label>
             <input
+              id="phone"
+              aria-label="phone"
               type="tel"
               name="phone"
               onChange={(e) => setPhone(e.target.value)}
@@ -113,6 +119,8 @@ const Signup = () => {
           <div className="form-field">
             <label htmlFor="password">Password *</label>
             <input
+              id="password"
+              aria-label="password"
               type="password"
               name="password"
               required
@@ -131,6 +139,8 @@ const Signup = () => {
           <div className="form-field">
             <label htmlFor="confirmPass"> Confirm Password *</label>
             <input
+              id="confirmPass"
+              aria-label="confirm-password"
               type="password"
               name="confirmPass"
               required
@@ -138,7 +148,7 @@ const Signup = () => {
               onBlur={(e) => {
                 e.target.className = 'touched';
                 password !== confirmPass
-                  ? setConfirmPassErr("Password don't match.")
+                  ? setConfirmPassErr("Passwords don't match.")
                   : setConfirmPassErr(undefined);
               }}
             />
