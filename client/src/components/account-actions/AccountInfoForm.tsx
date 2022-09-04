@@ -16,8 +16,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
       setEmail(data.email);
       setNewEmail(data.email);
       setPhone(data.phone);
-      setEmailAlert(data.emailAlert);
-      setTextAlert(data.textAlert);
+      setContent(true);
     } catch (err) {
       console.error(err);
     }
@@ -27,6 +26,8 @@ const AccountInfoForm = ({ user }: AuthProps) => {
     getAccountInfo();
   }, [user]);
 
+  const [content, setContent] = useState<boolean>(false);
+
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>('');
 
@@ -35,8 +36,6 @@ const AccountInfoForm = ({ user }: AuthProps) => {
   const [phone, setPhone] = useState<string>();
   const [newPass, setNewPass] = useState<string>('');
   const [confirmPass, setConfirmPass] = useState<string>('');
-  const [emailAlert, setEmailAlert] = useState<boolean>(false);
-  const [textAlert, setTextAlert] = useState<boolean>(false);
 
   const [editName, setEditName] = useState<boolean>(false);
   const [editEmail, setEditEmail] = useState<boolean>(false);
@@ -107,8 +106,6 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             newEmail,
             phone,
             newPass,
-            emailAlert,
-            textAlert,
             password,
           }),
         });
@@ -140,221 +137,226 @@ const AccountInfoForm = ({ user }: AuthProps) => {
   return (
     <section id="account-info-form">
       {!user && <Navigate to="/" />}
-      <h1>Account Info</h1>
-      <form action="" onSubmit={(e) => handleSubmit(e)}>
-        <div className="form-field">
-          <label htmlFor="name">Name: </label>
-          {!editName && (
-            <>
-              <p>{name}</p>
-              <button type="button" onClick={() => setEditName(true)}>
-                <img
-                  src={require('../../assets/icons/icons8-edit.svg').default}
-                  alt="Edit"
-                ></img>
-              </button>
-            </>
-          )}
-          {editName && (
-            <>
-              <input
-                type="text"
-                name="name"
-                autoFocus
-                value={name}
-                onChange={(e) => {
-                  e.target.className = 'touched';
-                  setName(e.target.value);
-                }}
-                onBlur={() => (!nameErr ? setEditName(false) : null)}
-                onKeyDown={(e) => handleKeyDown(e)}
-              />
-              {nameErr && <p className="error">{nameErr}</p>}
-              <button
-                type="button"
-                onClick={() => (!nameErr ? setEditName(false) : null)}
-              >
-                <img
-                  src={require('../../assets/icons/icons8-done.svg').default}
-                  alt="Done"
-                ></img>
-              </button>
-            </>
-          )}
-        </div>
-        <div className="form-field">
-          <label htmlFor="email">Email: </label>
-          {!editEmail && (
-            <>
-              <p>{newEmail}</p>
-              <button type="button" onClick={() => setEditEmail(true)}>
-                <img
-                  src={require('../../assets/icons/icons8-edit.svg').default}
-                  alt="Edit"
-                ></img>
-              </button>
-            </>
-          )}
-          {editEmail && (
-            <>
-              <input
-                type="email"
-                name="email"
-                autoFocus
-                value={newEmail}
-                onChange={(e) => {
-                  e.target.className = 'touched';
-                  setNewEmail(e.target.value);
-                }}
-                onBlur={() => (!emailErr ? setEditEmail(false) : null)}
-                onKeyDown={(e) => handleKeyDown(e)}
-              />
-              {emailErr && <p className="error">{emailErr}</p>}
-              <button
-                type="button"
-                onClick={() => (!emailErr ? setEditEmail(false) : null)}
-              >
-                <img
-                  src={require('../../assets/icons/icons8-done.svg').default}
-                  alt="Done"
-                ></img>
-              </button>
-            </>
-          )}
-        </div>
-        <div className="form-field">
-          <label htmlFor="phone">Phone: </label>
-          {!editPhone && (
-            <>
-              <p>{phone}</p>
-              <button type="button" onClick={() => setEditPhone(true)}>
-                <img
-                  src={require('../../assets/icons/icons8-edit.svg').default}
-                  alt="Edit"
-                ></img>
-              </button>
-            </>
-          )}
-          {editPhone && (
-            <>
-              <input
-                type="tel"
-                name="phone"
-                autoFocus
-                value={phone}
-                onChange={(e) => {
-                  e.target.className = 'touched';
-                  setPhone(e.target.value);
-                }}
-                onBlur={() => (!phoneErr ? setEditPhone(false) : null)}
-                onKeyDown={(e) => handleKeyDown(e)}
-              />
-              {phoneErr && <p className="error">{phoneErr}</p>}
-              <button
-                type="button"
-                onClick={() => (!phoneErr ? setEditPhone(false) : null)}
-              >
-                <img
-                  src={require('../../assets/icons/icons8-done.svg').default}
-                  alt="Done"
-                ></img>
-              </button>
-            </>
-          )}
-        </div>
-        <div className="form-field">
-          <label htmlFor="newPass">Password: </label>
-          {!editPass && (
-            <>
-              <p>{newPass ? '*'.repeat(newPass.length) : '******'}</p>
-              <button type="button" onClick={() => setEditPass(true)}>
-                <img
-                  src={require('../../assets/icons/icons8-edit.svg').default}
-                  alt="Edit"
-                ></img>
-              </button>
-            </>
-          )}
-          {editPass && (
-            <>
+      <div className="background-image"></div>
+      {content && (
+        <div className="content">
+          <h1>Account Info</h1>
+          <form action="" onSubmit={(e) => handleSubmit(e)}>
+            <div className="form-field">
+              <label htmlFor="name">Name: </label>
+              {!editName && (
+                <>
+                  <p>{name}</p>
+                  <button type="button" onClick={() => setEditName(true)}>
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-edit.svg').default
+                      }
+                      alt="Edit"
+                    ></img>
+                  </button>
+                </>
+              )}
+              {editName && (
+                <>
+                  <input
+                    type="text"
+                    name="name"
+                    autoFocus
+                    value={name}
+                    onChange={(e) => {
+                      e.target.className = 'touched';
+                      setName(e.target.value);
+                    }}
+                    onBlur={() => (!nameErr ? setEditName(false) : null)}
+                    onKeyDown={(e) => handleKeyDown(e)}
+                  />
+                  {nameErr && <p className="error">{nameErr}</p>}
+                  <button
+                    type="button"
+                    onClick={() => (!nameErr ? setEditName(false) : null)}
+                  >
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-done.svg').default
+                      }
+                      alt="Done"
+                    ></img>
+                  </button>
+                </>
+              )}
+            </div>
+            <div className="form-field">
+              <label htmlFor="email">Email: </label>
+              {!editEmail && (
+                <>
+                  <p>{newEmail}</p>
+                  <button type="button" onClick={() => setEditEmail(true)}>
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-edit.svg').default
+                      }
+                      alt="Edit"
+                    ></img>
+                  </button>
+                </>
+              )}
+              {editEmail && (
+                <>
+                  <input
+                    type="email"
+                    name="email"
+                    autoFocus
+                    value={newEmail}
+                    onChange={(e) => {
+                      e.target.className = 'touched';
+                      setNewEmail(e.target.value);
+                    }}
+                    onBlur={() => (!emailErr ? setEditEmail(false) : null)}
+                    onKeyDown={(e) => handleKeyDown(e)}
+                  />
+                  {emailErr && <p className="error">{emailErr}</p>}
+                  <button
+                    type="button"
+                    onClick={() => (!emailErr ? setEditEmail(false) : null)}
+                  >
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-done.svg').default
+                      }
+                      alt="Done"
+                    ></img>
+                  </button>
+                </>
+              )}
+            </div>
+            <div className="form-field">
+              <label htmlFor="phone">Phone: </label>
+              {!editPhone && (
+                <>
+                  <p>{phone}</p>
+                  <button type="button" onClick={() => setEditPhone(true)}>
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-edit.svg').default
+                      }
+                      alt="Edit"
+                    ></img>
+                  </button>
+                </>
+              )}
+              {editPhone && (
+                <>
+                  <input
+                    type="tel"
+                    name="phone"
+                    autoFocus
+                    value={phone}
+                    onChange={(e) => {
+                      e.target.className = 'touched';
+                      setPhone(e.target.value);
+                    }}
+                    onBlur={() => (!phoneErr ? setEditPhone(false) : null)}
+                    onKeyDown={(e) => handleKeyDown(e)}
+                  />
+                  {phoneErr && <p className="error">{phoneErr}</p>}
+                  <button
+                    type="button"
+                    onClick={() => (!phoneErr ? setEditPhone(false) : null)}
+                  >
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-done.svg').default
+                      }
+                      alt="Done"
+                    ></img>
+                  </button>
+                </>
+              )}
+            </div>
+            <div className="form-field">
+              <label htmlFor="newPass">Password: </label>
+              {!editPass && (
+                <>
+                  <p>{newPass ? '*'.repeat(newPass.length) : '******'}</p>
+                  <button type="button" onClick={() => setEditPass(true)}>
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-edit.svg').default
+                      }
+                      alt="Edit"
+                    ></img>
+                  </button>
+                </>
+              )}
+              {editPass && (
+                <>
+                  <input
+                    type="password"
+                    name="newPass"
+                    autoFocus
+                    value={newPass}
+                    onChange={(e) => {
+                      e.target.className = 'touched';
+                      setNewPass(e.target.value);
+                    }}
+                    onKeyDown={(e) => handleKeyDown(e)}
+                  />
+                  {passwordErr && <p className="error">{passwordErr}</p>}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      !passwordErr && !confirmPassErr
+                        ? setEditPass(false)
+                        : null
+                    }
+                  >
+                    <img
+                      src={
+                        require('../../assets/icons/icons8-done.svg').default
+                      }
+                      alt="Done"
+                    ></img>
+                  </button>
+                </>
+              )}
+            </div>
+            {editPass && (
+              <div className="form-field">
+                <label htmlFor="confirmPass"> Confirm Password: </label>
+                <input
+                  type="password"
+                  name="confirmPass"
+                  value={confirmPass}
+                  onChange={(e) => {
+                    e.target.className = 'touched';
+                    setConfirmPass(e.target.value);
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e)}
+                />
+                {confirmPassErr && <p className="error">{confirmPassErr}</p>}
+              </div>
+            )}
+            <div className="form-field">
+              <label htmlFor="currentPass">Current Password: </label>
               <input
                 type="password"
-                name="newPass"
-                autoFocus
-                value={newPass}
-                onChange={(e) => {
-                  e.target.className = 'touched';
-                  setNewPass(e.target.value);
-                }}
-                onKeyDown={(e) => handleKeyDown(e)}
+                name="currentPass"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              {passwordErr && <p className="error">{passwordErr}</p>}
-              <button
-                type="button"
-                onClick={() =>
-                  !passwordErr && !confirmPassErr ? setEditPass(false) : null
-                }
-              >
-                <img
-                  src={require('../../assets/icons/icons8-done.svg').default}
-                  alt="Done"
-                ></img>
-              </button>
-            </>
-          )}
-        </div>
-        {editPass && (
-          <div className="form-field">
-            <label htmlFor="confirmPass"> Confirm Password: </label>
-            <input
-              type="password"
-              name="confirmPass"
-              value={confirmPass}
-              onChange={(e) => {
-                e.target.className = 'touched';
-                setConfirmPass(e.target.value);
-              }}
-              onKeyDown={(e) => handleKeyDown(e)}
-            />
-            {confirmPassErr && <p className="error">{confirmPassErr}</p>}
-          </div>
-        )}
-        <div className="form-field-check">
-          <input
-            type="checkbox"
-            name="emailAlert"
-            checked={emailAlert}
-            onChange={() => setEmailAlert(!emailAlert)}
-          />
-          <label htmlFor="emailAlert">I want to receive email alerts.</label>
-        </div>
-        <div className="form-field-check">
-          <input
-            type="checkbox"
-            name="textAlert"
-            checked={textAlert}
-            onChange={() => setTextAlert(!textAlert)}
-          />
-          <label htmlFor="textAlert">I want to receive text alerts.</label>
-        </div>
-        <div className="form-field">
-          <label htmlFor="currentPass">Current Password: </label>
-          <input
-            type="password"
-            name="currentPass"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {!posting && <button className="submit">Save</button>}
-          {posting && (
-            <div className="posting">
-              <div className="spinner"></div>
+              {!posting && <button className="submit">Save</button>}
+              {posting && (
+                <div className="posting">
+                  <div className="spinner"></div>
+                </div>
+              )}
             </div>
-          )}
+            {postError && <p className="post-error">{postError}</p>}
+            {posted && <p className="posted">Account updated successfully.</p>}
+          </form>
         </div>
-        {postError && <p className="post-error">{postError}</p>}
-        {posted && <p className="posted">Account updated successfully.</p>}
-      </form>
+      )}
     </section>
   );
 };
