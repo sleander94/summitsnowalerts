@@ -40,7 +40,7 @@
     }
     .link-container {
       display: flex;
-      gap: 10rem;
+      gap: 5rem;
     }
     a {
       font-size: 1.5rem;
@@ -53,6 +53,17 @@
     }
     a:hover {
       background-color: $light-blue;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #home {
+    .content {
+      .link-container {
+        flex-direction: column;
+        gap: 2rem;
+      }
     }
   }
 }
