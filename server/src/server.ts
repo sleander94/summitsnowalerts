@@ -18,7 +18,7 @@ import userRouter from './routes/users';
 import logger from 'jet-logger';
 import { CustomError } from '@shared/errors';
 
-import { sendTextAlerts } from './services/alerts';
+import { sendAlerts } from './services/alerts';
 
 import mongoose, { ConnectOptions } from 'mongoose';
 
@@ -103,10 +103,10 @@ app.use(express.static(staticDir));
 
 // Send daily text alert at 6:00 MDT
 cron.schedule(
-  '0 18 * * *',
+  '0 * * * *',
   () => {
-    console.log('Scheduled Alert - 6:00PM MDT');
-    sendTextAlerts();
+    console.log('Scheduled Hourly Alert');
+    sendAlerts();
   },
   {
     scheduled: true,
