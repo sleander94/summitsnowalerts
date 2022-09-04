@@ -29,9 +29,14 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         <Link id="home-link" className="menu-item" to="/">
           Home
         </Link>
-        <Link id="mountains-link" className="menu-item" to="/conditions">
+        <Link id="mountains-link" className="menu-item" to="/forecast">
           Forecast
         </Link>
+        {user && (
+          <Link id="account-link" className="menu-item" to="/alerts">
+            Alerts
+          </Link>
+        )}
         {user && (
           <Link id="account-link" className="menu-item" to="/account">
             Account
@@ -81,13 +86,25 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         <Link
           id="mountains-link"
           className="menu-item"
-          to="/conditions"
+          to="/forecast"
           onClick={() => {
             closeMenu();
           }}
         >
           Forecast
         </Link>
+        {user && (
+          <Link
+            id="account-link"
+            className="menu-item"
+            to="/alerts"
+            onClick={() => {
+              closeMenu();
+            }}
+          >
+            Alerts
+          </Link>
+        )}
         {user && (
           <Link
             id="account-link"

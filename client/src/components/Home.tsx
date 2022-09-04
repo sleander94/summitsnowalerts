@@ -20,8 +20,9 @@ const Home = ({ user }: AuthProps) => {
         )}
         {user && (
           <div className="link-container">
-            <Link to="/conditions">Forecast</Link>
-            <Link to="/account">Edit Account</Link>
+            <Link to="/forecast">Forecast</Link>
+            <Link to="/alerts">Alerts</Link>
+            <Link to="/account">Account</Link>
           </div>
         )}
       </div>
