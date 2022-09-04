@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './components/account-actions/Login';
 import Signup from './components/account-actions/Signup';
-import Account from './components/Account';
+import AlertsForm from './components/account-actions/AlertsForm';
+import AccountInfoForm from './components/account-actions/AccountInfoForm';
 import Home from './components/Home';
-import Conditions from './components/Conditions';
+import Forecast from './components/Forecast';
 import Footer from './components/Footer';
 import './styles/main.css';
 import { User } from './types.d';
@@ -63,8 +64,9 @@ const App = () => {
             element={<Login user={user} getUser={getUser} />}
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<Account user={user} />} />
-          <Route path="/conditions" element={<Conditions user={user} />} />
+          <Route path="/alerts" element={<AlertsForm user={user} />} />
+          <Route path="/account" element={<AccountInfoForm user={user} />} />
+          <Route path="/forecast" element={<Forecast user={user} />} />
         </Routes>
         <Footer />
       </Router>
