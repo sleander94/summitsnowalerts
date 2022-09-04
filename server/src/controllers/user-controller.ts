@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import User, { IUser } from '../models/user';
+import User, { IUser, timesObj, daysObj } from '../models/user';
 import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
+import _ from 'lodash';
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -42,8 +43,7 @@ exports.signup_post = [
         email: req.body.email,
         phone: req.body.phone ? req.body.phone : '',
         password: hashedPassword,
-        emailAlert: req.body.emailAlert,
-        textAlert: req.body.textAlert,
+        notifications: req.body.notifications,
         mountains: {},
       });
       User.findOne({ email: user.email }).exec((err, results) => {
@@ -62,14 +62,14 @@ exports.signup_post = [
           }
           const body =
             'You have successfully signed up for Summit Snow Alerts. Happy shredding! Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.';
-          if (user.textAlert === true && user.phone.length > 0) {
+          if (user.notifications.text === true && user.phone.length > 0) {
             client.messages.create({
               body: body,
               from: twilioNumber,
               to: user.phone,
             });
           }
-          if (user.emailAlert === true) {
+          if (user.notifications.email === true) {
             const mailOptions = {
               from: 'summitsnowalerts@gmail.com',
               to: user.email,
@@ -130,7 +130,6 @@ exports.user_get = (req: Request, res: Response, next: NextFunction) => {
         return next(err);
       }
       if (results) results.password = '';
-      console.log(results);
       res.status(200).json(results);
     });
   } else {
@@ -173,57 +172,79 @@ exports.user_put = [
             email: req.body.newEmail ? req.body.newEmail : req.body.email,
             phone: req.body.phone ? req.body.phone : '',
             password: hashedPassword,
-            emailAlert: req.body.emailAlert,
-            textAlert: req.body.textAlert,
+            notifications: req.body.notifications
+              ? req.body.notifications
+              : user.notifications,
             mountains: req.body.mountains ? req.body.mountains : user.mountains,
           });
           User.findByIdAndUpdate(req.user?._id, updatedUser, {}, (err) => {
             if (err) {
               return next(err);
             }
-            let changedMountains = false;
-            if (
-              Object.keys(updatedUser.mountains).length > 0 &&
-              Object.keys(user.mountains).sort().join('') !==
-                Object.keys(updatedUser.mountains).sort().join('')
-            ) {
-              changedMountains = true;
+            const formatString = (array: string[]) => {
+              let string = '';
+              if (array.length > 2) {
+                array[array.length - 1] = 'and ' + array[array.length - 1];
+                string = array.join(', ');
+              } else if (array.length === 2) {
+                string = array.join(' and ');
+              } else {
+                string = array.join('');
+              }
+              return string;
+            };
+
+            // Format alert preferences for message
+            let mountainsChanged = false;
+            if (!_.isEqual(user.mountains, updatedUser.mountains)) {
+              mountainsChanged = true;
             }
+            let notificationsChanged = false;
+            if (!_.isEqual(user.notifications, updatedUser.notifications)) {
+              notificationsChanged = true;
+            }
+
             let mountainNames = Object.keys(updatedUser.mountains);
-            let mountainString = '';
-            if (mountainNames.length > 2) {
-              mountainNames[mountainNames.length - 1] =
-                'and ' + mountainNames[mountainNames.length - 1];
-              mountainString = mountainNames.join(', ');
-            } else if (mountainNames.length === 2) {
-              mountainString = mountainNames.join(' and ');
-            } else {
-              mountainString = mountainNames.join('');
+            let mountainString = formatString(mountainNames);
+
+            let times = [];
+            for (const key of Object.keys(updatedUser.notifications.times)) {
+              let time = key as unknown as keyof timesObj;
+              if (updatedUser.notifications.times[time])
+                times.push(`${time}:00`);
             }
+            let timeString = formatString(times);
+
+            let days = [];
+            for (const key of Object.keys(updatedUser.notifications.days)) {
+              let day = key as keyof daysObj;
+              if (updatedUser.notifications.days[day])
+                days.push(day.charAt(0).toLocaleUpperCase() + day.slice(1));
+            }
+            let dayString;
+            days.length === 7
+              ? (dayString = 'Every day.')
+              : (dayString = formatString(days));
             if (
-              updatedUser.textAlert === true &&
+              updatedUser.notifications.text &&
               updatedUser.phone.length > 0 &&
-              (changedMountains === true ||
-                user.textAlert !== updatedUser.textAlert ||
-                user.phone !== updatedUser.phone)
+              (mountainsChanged || notificationsChanged)
             ) {
               client.messages.create({
-                body: `Summit Snow Alerts: Test Alert. You are currently receiving text alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
+                body: `SSA - Settings updated.\n\nMountains: ${mountainString}.\n\nTimes: ${timeString}.\n\nDays: ${dayString}\n\nVisit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
                 from: twilioNumber,
                 to: user.phone,
               });
             }
             if (
-              updatedUser.emailAlert === true &&
-              (changedMountains === true ||
-                user.emailAlert !== updatedUser.emailAlert ||
-                user.email !== updatedUser.email)
+              updatedUser.notifications.email &&
+              (mountainsChanged || notificationsChanged)
             ) {
               const mailOptions = {
                 from: 'summitsnowalerts@gmail.com',
                 to: user.email,
-                subject: 'Summit Snow Alerts: Test Alert',
-                text: `Summit Snow Alerts: Test Alert. You are currently receiving email alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings or unsubscribe.`,
+                subject: 'Summit Snow Alerts: Settings Updated',
+                text: `SSA - Settings updated.\n\nMountains: ${mountainString}.\n\nTimes: ${timeString}.\n\nDays: ${dayString}\n\nVisit summitsnowalerts.com to update your settings. or unsubscribe.`,
               };
               transporter.sendMail(mailOptions, (error) => {
                 if (error) {
