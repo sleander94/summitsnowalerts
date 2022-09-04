@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { AuthProps, mountainsObj } from '../types.d';
 import MountainWeather from './MountainWeather';
 
-const Conditions = ({ user }: AuthProps) => {
+const Forecast = ({ user }: AuthProps) => {
   const [mountains, setMountains] = useState<mountainsObj>();
 
   const getMountains = async () => {
@@ -15,6 +15,7 @@ const Conditions = ({ user }: AuthProps) => {
       });
       const data = await response.json();
       setMountains(data.mountains);
+      setContent(true);
     } catch (err) {
       console.error(err);
     }
@@ -23,6 +24,8 @@ const Conditions = ({ user }: AuthProps) => {
   useEffect(() => {
     getMountains();
   }, [user]);
+
+  const [content, setContent] = useState<boolean>(false);
 
   return (
     <section id="conditions">
@@ -52,4 +55,4 @@ const Conditions = ({ user }: AuthProps) => {
   );
 };
 
-export default Conditions;
+export default Forecast;
