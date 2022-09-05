@@ -209,7 +209,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 #home .content .link-container {
   display: flex;
-  gap: 10rem;
+  gap: 5rem;
 }
 #home .content a {
   font-size: 1.5rem;
@@ -224,6 +224,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: #5a7dc8;
 }
 
+@media only screen and (max-width: 900px) {
+  #home .content .link-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
 @media only screen and (max-width: 640px) {
   #home h1 {
     font-size: 2.5rem;
@@ -400,20 +406,26 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 #account-info-form {
+  display: grid;
+  grid: 1fr/1fr;
+}
+#account-info-form .content {
+  grid-area: 1/1/2/2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 1rem;
   color: #fff;
+  z-index: 2;
 }
-#account-info-form h1 {
+#account-info-form .content h1 {
   font-size: 1.5rem;
 }
-#account-info-form a:hover {
+#account-info-form .content a:hover {
   color: #32497b;
 }
-#account-info-form form {
+#account-info-form .content form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -424,30 +436,30 @@ Note: Beware of modifying this element as it can break the animations - you shou
   color: #151c36;
   background-color: #cfdeec;
 }
-#account-info-form form p {
+#account-info-form .content form p {
   font-size: 1rem;
 }
-#account-info-form .form-field {
+#account-info-form .content .form-field {
   display: grid;
   grid: 1fr 1fr/1fr 1fr 1fr;
   align-items: center;
   gap: 0;
   width: 100%;
 }
-#account-info-form .form-field label {
+#account-info-form .content .form-field label {
   font-weight: bold;
 }
-#account-info-form .form-field p {
+#account-info-form .content .form-field p {
   grid-area: 1/2/2/3;
   font-size: 1rem;
   max-width: 250px;
 }
-#account-info-form .form-field p.error {
+#account-info-form .content .form-field p.error {
   grid-area: 2/2/3/3;
   font-size: 0.75rem;
   color: red;
 }
-#account-info-form .form-field input {
+#account-info-form .content .form-field input {
   grid-area: 1/2/2/3;
   border-radius: 0;
   border: 1px solid #151c36;
@@ -456,18 +468,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
   height: 1.5rem;
   -webkit-appearance: none;
 }
-#account-info-form .form-field input:focus {
+#account-info-form .content .form-field input:focus {
   outline: none;
   border: 1px solid #32497b;
   box-shadow: 0 0 5px #32497b;
 }
-#account-info-form .form-field input.touched:invalid {
+#account-info-form .content .form-field input.touched:invalid {
   border: 1px solid red;
 }
-#account-info-form .form-field input.touched:invalid:focus {
+#account-info-form .content .form-field input.touched:invalid:focus {
   box-shadow: 0 0 5px red;
 }
-#account-info-form .form-field button {
+#account-info-form .content .form-field button {
   grid-area: 1/3/2/4;
   justify-self: end;
   padding: 0;
@@ -477,40 +489,40 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: inherit;
   font-size: 0.75rem;
 }
-#account-info-form .form-field button.submit {
+#account-info-form .content .form-field button.submit {
   width: 64px;
   height: 24px;
   color: #fff;
   background-color: #151c36;
   border: 1px solid #151c36;
 }
-#account-info-form button {
+#account-info-form .content button {
   font-size: 1rem;
   padding: 0;
   width: 48px;
   height: 24px;
 }
-#account-info-form button.submit:hover {
+#account-info-form .content button.submit:hover {
   background-color: #5a7dc8;
 }
-#account-info-form .form-field-check {
+#account-info-form .content .form-field-check {
   display: flex;
   justify-content: center;
   gap: 2rem;
   padding: 0.5rem;
 }
-#account-info-form .checkbox-msg {
+#account-info-form .content .checkbox-msg {
   text-align: center;
   font-style: italic;
 }
-#account-info-form .posting {
+#account-info-form .content .posting {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 6px 48px;
   height: 40px;
 }
-#account-info-form .posting .spinner {
+#account-info-form .content .posting .spinner {
   border: 2px solid #fff;
   border-top: 2px solid #151c36;
   border-right: 2px solid #151c36;
@@ -520,39 +532,39 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -webkit-animation: spin 1.2s linear infinite;
           animation: spin 1.2s linear infinite;
 }
-#account-info-form .post-error {
+#account-info-form .content .post-error {
   color: red;
   font-size: 0.9rem;
   text-align: center;
 }
-#account-info-form .posted {
+#account-info-form .content .posted {
   text-align: center;
 }
 
 @media only screen and (max-width: 640px) {
-  #account-info-form form {
+  #account-info-form .content form {
     max-width: 95%;
     padding: 1.5rem;
   }
-  #account-info-form .form-field {
+  #account-info-form .content .form-field {
     grid: 1fr 1fr 1.5rem/1fr 1fr;
     max-width: 100%;
   }
-  #account-info-form .form-field p {
+  #account-info-form .content .form-field p {
     grid-area: 2/1/3/2;
     font-size: 1rem;
   }
-  #account-info-form .form-field p.error {
+  #account-info-form .content .form-field p.error {
     grid-area: 3/1/4/2;
   }
-  #account-info-form .form-field input {
+  #account-info-form .content .form-field input {
     grid-area: 2/1/3/2;
     max-width: 200px;
   }
-  #account-info-form .form-field button {
+  #account-info-form .content .form-field button {
     grid-area: 2/2/3/3;
   }
-  #account-info-form .form-field button.submit {
+  #account-info-form .content .form-field button.submit {
     width: 54px;
   }
 }
@@ -564,22 +576,36 @@ Note: Beware of modifying this element as it can break the animations - you shou
     transform: rotate(360deg);
   }
 }
-#mountains-form {
+#alerts-form {
+  display: grid;
+  grid: 1fr/1fr;
+}
+#alerts-form .content {
+  grid-area: 1/1/2/2;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   gap: 1rem;
-  padding: 1rem;
+  padding: 2rem;
   color: #fff;
+  z-index: 2;
 }
-#mountains-form h1 {
+#alerts-form .content h1 {
   font-size: 1.5rem;
 }
-#mountains-form a:hover {
+#alerts-form .content h2 {
+  width: 100%;
+  border-top: 1px solid #151c36;
+  padding-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  text-decoration: underline;
+}
+#alerts-form .content a:hover {
   color: #32497b;
 }
-#mountains-form form {
+#alerts-form .content form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -591,35 +617,57 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: #cfdeec;
   color: #151c36;
 }
-#mountains-form form p {
+#alerts-form .content form p {
   font-size: 1rem;
 }
-#mountains-form form ol {
+#alerts-form .content form ol {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  list-style-position: inside;
+  line-height: 0.75rem;
 }
-#mountains-form .form-field {
+#alerts-form .content form ol li button {
+  text-align: center;
+  line-height: 0.75rem;
+}
+#alerts-form .content .checkboxes {
+  display: flex;
+  justify-content: space-around;
+  gap: 4rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+#alerts-form .content .checkboxes .form-field-check {
+  display: flex;
+  gap: 1rem;
+}
+#alerts-form .content .form-field,
+#alerts-form .content .form-field-pass {
   display: grid;
   grid: 1fr/1fr 1fr 1fr;
   align-items: center;
   gap: 0;
   width: 100%;
 }
-#mountains-form .form-field label {
+#alerts-form .content .form-field label,
+#alerts-form .content .form-field-pass label {
   font-weight: bold;
 }
-#mountains-form .form-field p {
+#alerts-form .content .form-field p,
+#alerts-form .content .form-field-pass p {
   grid-area: 1/2/2/3;
   font-size: 1rem;
   max-width: 250px;
 }
-#mountains-form .form-field p.error {
+#alerts-form .content .form-field p.error,
+#alerts-form .content .form-field-pass p.error {
   grid-area: 2/2/3/3;
   font-size: 0.75rem;
   color: red;
 }
-#mountains-form .form-field input {
+#alerts-form .content .form-field input,
+#alerts-form .content .form-field-pass input {
   grid-area: 1/2/2/3;
   border-radius: 0;
   border: 1px solid #151c36;
@@ -628,24 +676,32 @@ Note: Beware of modifying this element as it can break the animations - you shou
   height: 1.5rem;
   -webkit-appearance: none;
 }
-#mountains-form .form-field input:focus {
+#alerts-form .content .form-field input:focus,
+#alerts-form .content .form-field-pass input:focus {
   outline: none;
   border: 1px solid #32497b;
   box-shadow: 0 0 5px #32497b;
 }
-#mountains-form .form-field input.touched:invalid {
+#alerts-form .content .form-field input.touched:invalid,
+#alerts-form .content .form-field-pass input.touched:invalid {
   border: 1px solid red;
 }
-#mountains-form .form-field input.touched:invalid:focus {
+#alerts-form .content .form-field input.touched:invalid:focus,
+#alerts-form .content .form-field-pass input.touched:invalid:focus {
   box-shadow: 0 0 5px red;
 }
-#mountains-form .form-field button {
+#alerts-form .content .form-field button,
+#alerts-form .content .form-field-pass button {
   grid-area: 1/3/2/4;
   justify-self: end;
   height: 24px;
   width: 64px;
 }
-#mountains-form button {
+#alerts-form .content .form-field-pass {
+  border-top: 1px solid #151c36;
+  padding-top: 2rem;
+}
+#alerts-form .content button {
   padding: 0;
   width: 16px;
   height: 16px;
@@ -654,17 +710,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: #151c36;
   border: 1px solid #151c36;
 }
-#mountains-form button:hover {
+#alerts-form .content button:hover {
   background-color: #5a7dc8;
 }
-#mountains-form .posting {
+#alerts-form .content .posting {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 6px 48px;
   height: 40px;
 }
-#mountains-form .posting .spinner {
+#alerts-form .content .posting .spinner {
   border: 2px solid #fff;
   border-top: 2px solid #151c36;
   border-right: 2px solid #151c36;
@@ -674,40 +730,49 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -webkit-animation: spin 1.2s linear infinite;
           animation: spin 1.2s linear infinite;
 }
-#mountains-form .post-error {
+#alerts-form .content .post-error {
   color: red;
   font-size: 0.9rem;
   text-align: center;
 }
-#mountains-form .posted {
+#alerts-form .content .posted {
   text-align: center;
 }
 
 @media only screen and (max-width: 640px) {
-  #mountains-form form {
+  #alerts-form .content {
+    padding: 2rem 0.5rem;
+  }
+  #alerts-form .content form {
     max-width: 95%;
     padding: 1rem 2rem;
+    gap: 1rem;
   }
-  #mountains-form .form-field {
+  #alerts-form .content .form-field,
+#alerts-form .content .form-field-pass {
     grid: 1fr 1fr 1.5rem/1fr 1fr;
     max-width: 100%;
-    padding-top: 0;
   }
-  #mountains-form .form-field p {
+  #alerts-form .content .form-field p,
+#alerts-form .content .form-field-pass p {
     grid-area: 2/1/3/2;
     font-size: 1rem;
   }
-  #mountains-form .form-field p.error {
+  #alerts-form .content .form-field p.error,
+#alerts-form .content .form-field-pass p.error {
     grid-area: 3/1/4/2;
   }
-  #mountains-form .form-field input {
+  #alerts-form .content .form-field input,
+#alerts-form .content .form-field-pass input {
     grid-area: 2/1/3/2;
     max-width: 200px;
   }
-  #mountains-form .form-field button {
+  #alerts-form .content .form-field button,
+#alerts-form .content .form-field-pass button {
     grid-area: 2/2/3/3;
   }
-  #mountains-form .form-field button.submit {
+  #alerts-form .content .form-field button.submit,
+#alerts-form .content .form-field-pass button.submit {
     width: 54px;
   }
 }
