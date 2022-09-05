@@ -5,8 +5,8 @@ const Home = ({ user }: AuthProps) => {
   return (
     <section id="home">
       <div className="background-image"></div>
-      <h1>Summit Snow Alerts</h1>
       <div className="content">
+        <h1>Summit Snow Alerts</h1>
         <h2>
           Never miss a storm. Get text notifications for your favorite
           mountains.
