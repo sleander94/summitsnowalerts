@@ -8,6 +8,7 @@ const express_validator_1 = require("express-validator");
 const passport_1 = __importDefault(require("passport"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const lodash_1 = __importDefault(require("lodash"));
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
@@ -42,8 +43,7 @@ exports.signup_post = [
                 email: req.body.email,
                 phone: req.body.phone ? req.body.phone : '',
                 password: hashedPassword,
-                emailAlert: req.body.emailAlert,
-                textAlert: req.body.textAlert,
+                notifications: req.body.notifications,
                 mountains: {},
             });
             user_1.default.findOne({ email: user.email }).exec((err, results) => {
@@ -61,14 +61,14 @@ exports.signup_post = [
                         return next(err);
                     }
                     const body = 'You have successfully signed up for Summit Snow Alerts. Happy shredding! Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.';
-                    if (user.textAlert === true && user.phone.length > 0) {
+                    if (user.notifications.text === true && user.phone.length > 0) {
                         client.messages.create({
                             body: body,
                             from: twilioNumber,
                             to: user.phone,
                         });
                     }
-                    if (user.emailAlert === true) {
+                    if (user.notifications.email === true) {
                         const mailOptions = {
                             from: 'summitsnowalerts@gmail.com',
                             to: user.email,
@@ -127,7 +127,6 @@ exports.user_get = (req, res, next) => {
             }
             if (results)
                 results.password = '';
-            console.log(results);
             res.status(200).json(results);
         });
     }
@@ -167,53 +166,73 @@ exports.user_put = [
                     email: req.body.newEmail ? req.body.newEmail : req.body.email,
                     phone: req.body.phone ? req.body.phone : '',
                     password: hashedPassword,
-                    emailAlert: req.body.emailAlert,
-                    textAlert: req.body.textAlert,
+                    notifications: req.body.notifications
+                        ? req.body.notifications
+                        : user.notifications,
                     mountains: req.body.mountains ? req.body.mountains : user.mountains,
                 });
                 user_1.default.findByIdAndUpdate((_b = req.user) === null || _b === void 0 ? void 0 : _b._id, updatedUser, {}, (err) => {
                     if (err) {
                         return next(err);
                     }
-                    let changedMountains = false;
-                    if (Object.keys(updatedUser.mountains).length > 0 &&
-                        Object.keys(user.mountains).sort().join('') !==
-                            Object.keys(updatedUser.mountains).sort().join('')) {
-                        changedMountains = true;
+                    const formatString = (array) => {
+                        let string = '';
+                        if (array.length > 2) {
+                            array[array.length - 1] = 'and ' + array[array.length - 1];
+                            string = array.join(', ');
+                        }
+                        else if (array.length === 2) {
+                            string = array.join(' and ');
+                        }
+                        else {
+                            string = array.join('');
+                        }
+                        return string;
+                    };
+                    // Format alert preferences for message
+                    let mountainsChanged = false;
+                    if (!lodash_1.default.isEqual(user.mountains, updatedUser.mountains)) {
+                        mountainsChanged = true;
+                    }
+                    let notificationsChanged = false;
+                    if (!lodash_1.default.isEqual(user.notifications, updatedUser.notifications)) {
+                        notificationsChanged = true;
                     }
                     let mountainNames = Object.keys(updatedUser.mountains);
-                    let mountainString = '';
-                    if (mountainNames.length > 2) {
-                        mountainNames[mountainNames.length - 1] =
-                            'and ' + mountainNames[mountainNames.length - 1];
-                        mountainString = mountainNames.join(', ');
+                    let mountainString = formatString(mountainNames);
+                    let times = [];
+                    for (const key of Object.keys(updatedUser.notifications.times)) {
+                        let time = key;
+                        if (updatedUser.notifications.times[time])
+                            times.push(`${time}:00`);
                     }
-                    else if (mountainNames.length === 2) {
-                        mountainString = mountainNames.join(' and ');
+                    let timeString = formatString(times);
+                    let days = [];
+                    for (const key of Object.keys(updatedUser.notifications.days)) {
+                        let day = key;
+                        if (updatedUser.notifications.days[day])
+                            days.push(day.charAt(0).toLocaleUpperCase() + day.slice(1));
                     }
-                    else {
-                        mountainString = mountainNames.join('');
-                    }
-                    if (updatedUser.textAlert === true &&
+                    let dayString;
+                    days.length === 7
+                        ? (dayString = 'Every day.')
+                        : (dayString = formatString(days));
+                    if (updatedUser.notifications.text &&
                         updatedUser.phone.length > 0 &&
-                        (changedMountains === true ||
-                            user.textAlert !== updatedUser.textAlert ||
-                            user.phone !== updatedUser.phone)) {
+                        (mountainsChanged || notificationsChanged)) {
                         client.messages.create({
-                            body: `Summit Snow Alerts: Test Alert. You are currently receiving text alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
+                            body: `SSA - Settings updated.\n\nMountains: ${mountainString}.\n\nTimes: ${timeString}.\n\nDays: ${dayString}\n\nVisit summitsnowalerts.com to update your settings. Reply STOP to unsubscribe.`,
                             from: twilioNumber,
                             to: user.phone,
                         });
                     }
-                    if (updatedUser.emailAlert === true &&
-                        (changedMountains === true ||
-                            user.emailAlert !== updatedUser.emailAlert ||
-                            user.email !== updatedUser.email)) {
+                    if (updatedUser.notifications.email &&
+                        (mountainsChanged || notificationsChanged)) {
                         const mailOptions = {
                             from: 'summitsnowalerts@gmail.com',
                             to: user.email,
-                            subject: 'Summit Snow Alerts: Test Alert',
-                            text: `Summit Snow Alerts: Test Alert. You are currently receiving email alerts for ${mountainString}. Visit summitsnowalerts.com to update your settings or unsubscribe.`,
+                            subject: 'Summit Snow Alerts: Settings Updated',
+                            text: `SSA - Settings updated.\n\nMountains: ${mountainString}.\n\nTimes: ${timeString}.\n\nDays: ${dayString}\n\nVisit summitsnowalerts.com to update your settings. or unsubscribe.`,
                         };
                         transporter.sendMail(mailOptions, (error) => {
                             if (error) {

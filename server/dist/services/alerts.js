@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendTextAlerts = void 0;
+exports.sendAlerts = void 0;
 require('dotenv').config({ path: '../../.env' });
 const user_1 = __importDefault(require("../models/user"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
@@ -30,111 +30,80 @@ const transporter = nodemailer_1.default.createTransport({
     },
 });
 const getWeather = (location) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`);
-    const data = yield response.json();
-    return data;
+    try {
+        const response = yield fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`);
+        const data = yield response.json();
+        return data;
+    }
+    catch (err) {
+        console.error(err);
+    }
 });
-function sendTextAlerts() {
+function sendAlerts() {
     return __awaiter(this, void 0, void 0, function* () {
+        const mountainsRef = {
+            Breckenridge: 80424,
+            Keystone: 80435,
+            Vail: 81657,
+            Monarch: 81227,
+            'Arapahoe Basin': 80435,
+            Copper: 80443,
+            'Winter Park': 80482,
+            Steamboat: 80487,
+            'Beaver Creek': 81620,
+            'Crested Butte': 81224,
+            Eldora: 80466,
+            Aspen: 81612,
+        };
         try {
-            // Get weather for all mountains
             console.log('Getting weather...');
             let weather = {};
-            const breckenridgeWeather = yield getWeather(80424);
-            weather['Breckenridge'] = {
-                snow: breckenridgeWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: breckenridgeWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: breckenridgeWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const keystoneWeather = yield getWeather(80435);
-            weather['Keystone'] = {
-                snow: keystoneWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: keystoneWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: keystoneWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const vailWeather = yield getWeather(81657);
-            weather['Vail'] = {
-                snow: vailWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: vailWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: vailWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const monarchWeather = yield getWeather(81227);
-            weather['Monarch'] = {
-                snow: monarchWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: monarchWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: monarchWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const arapahoeBasinWeather = yield getWeather(80435);
-            weather['Arapahoe Basin'] = {
-                snow: arapahoeBasinWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: arapahoeBasinWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: arapahoeBasinWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const copperWeather = yield getWeather(80443);
-            weather['Copper'] = {
-                snow: copperWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: copperWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: copperWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const winterParkWeather = yield getWeather(80482);
-            weather['Winter Park'] = {
-                snow: winterParkWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: winterParkWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: winterParkWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const steamboatWeather = yield getWeather(80487);
-            weather['Steamboat'] = {
-                snow: steamboatWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: steamboatWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: steamboatWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const beaverCreekWeather = yield getWeather(81620);
-            weather['Beaver Creek'] = {
-                snow: beaverCreekWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: beaverCreekWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: beaverCreekWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const crestedButteWeather = yield getWeather(81224);
-            weather['Crested Butte'] = {
-                snow: crestedButteWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: crestedButteWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: crestedButteWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const eldoraWeather = yield getWeather(80466);
-            weather['Eldora'] = {
-                snow: eldoraWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: eldoraWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: eldoraWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            const aspenWeather = yield getWeather(81612);
-            weather['Aspen'] = {
-                snow: aspenWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                snowChance: aspenWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                precip: aspenWeather.forecast.forecastday[0].day.totalprecip_in,
-            };
-            console.log('Weather ready, sending to users...');
-            // Send texts to users with mountains receiving snow
-            const results = yield user_1.default.find({});
+            yield Promise.all(Object.keys(mountainsRef).map((key) => __awaiter(this, void 0, void 0, function* () {
+                const mountain = key;
+                const localWeather = yield getWeather(mountainsRef[mountain]);
+                weather[mountain] = {
+                    snow: localWeather.forecast.forecastday[0].day.daily_will_it_snow,
+                    snowChance: localWeather.forecast.forecastday[0].day.daily_chance_of_snow,
+                    precip: localWeather.forecast.forecastday[0].day.totalprecip_in,
+                };
+            })));
+            console.log('Weather received, sending alerts...');
+            const days = [
+                'sunday',
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday',
+            ];
+            const date = new Date();
+            const currDay = days[date.getDay()];
+            const currTime = date.getHours();
+            const results = yield user_1.default.find({
+                [`notifications.days.${currDay}`]: true,
+                [`notifications.times.${currTime}`]: true,
+            });
             for (const user of results) {
-                if (user.emailAlert === true ||
-                    (user.textAlert === true && user.phone.length > 0)) {
+                if (user.notifications.email ||
+                    (user.notifications.text && user.phone.length > 0)) {
                     let keys = Object.keys(user.mountains);
                     for (const mountain of keys) {
-                        if (weather[mountain].snow == 1) {
-                            if (user.textAlert === true && user.phone.length > 0) {
-                                const body = `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Reply STOP to unsubscribe.`;
+                        if (weather[mountain].snow === 0) {
+                            if (user.notifications.text && user.phone.length > 0) {
+                                const body = `Summit Snow Alerts: Powder Alert for ${mountain}\n${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches.\nReply STOP to unsubscribe.`;
                                 client.messages.create({
                                     body: body,
                                     from: twilioNumber,
                                     to: user.phone,
                                 });
                             }
-                            if (user.emailAlert === true) {
+                            if (user.notifications.email === true) {
                                 const mailOptions = {
                                     from: 'summitsnowalerts@gmail.com',
                                     to: user.email,
                                     subject: `Summit Snow Alerts: Powder Alert for ${mountain}`,
-                                    text: `Summit Snow Alerts: Powder Alert for ${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches. Visit summitsnowalerts.com to unsubscribe.`,
+                                    text: `${mountain} - ${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches.\nVisit summitsnowalerts.com to unsubscribe.`,
                                 };
                                 transporter.sendMail(mailOptions, (error) => {
                                     if (error) {
@@ -146,15 +115,17 @@ function sendTextAlerts() {
                     }
                 }
             }
-            client.messages.create({
-                body: 'Server is sending alerts',
-                from: twilioNumber,
-                to: myNumber,
-            });
+            if (currTime === 18) {
+                client.messages.create({
+                    body: 'Server is online and sending alerts',
+                    from: twilioNumber,
+                    to: myNumber,
+                });
+            }
         }
         catch (err) {
             client.messages.create({
-                body: `Error sending snow alerts: ${err}`,
+                body: `Error sending alerts: ${err}`,
                 from: twilioNumber,
                 to: myNumber,
             });
@@ -162,4 +133,4 @@ function sendTextAlerts() {
         }
     });
 }
-exports.sendTextAlerts = sendTextAlerts;
+exports.sendAlerts = sendAlerts;

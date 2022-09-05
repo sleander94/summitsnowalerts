@@ -9,9 +9,13 @@ const UserSchema = new mongoose_1.default.Schema({
     email: { type: String, required: true },
     phone: { type: String, required: false },
     password: { type: String, required: true },
-    textAlert: { type: Boolean, required: true },
-    emailAlert: { type: Boolean, required: true },
+    notifications: {
+        text: { type: Boolean, required: true },
+        email: { type: Boolean, required: true },
+        times: { type: Object, required: true },
+        days: { type: Object, required: true },
+    },
     mountains: { type: Object, required: true },
-});
+}, { minimize: false });
 const User = mongoose_1.default.model('User', UserSchema);
 exports.default = User;
