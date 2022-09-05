@@ -15,7 +15,6 @@ const Forecast = ({ user }: AuthProps) => {
       });
       const data = await response.json();
       setMountains(data.mountains);
-      setContent(true);
     } catch (err) {
       console.error(err);
     }
@@ -25,10 +24,8 @@ const Forecast = ({ user }: AuthProps) => {
     getMountains();
   }, [user]);
 
-  const [content, setContent] = useState<boolean>(false);
-
   return (
-    <section id="conditions">
+    <section id="forecast">
       <div className="background-image"></div>
       <div className="content">
         <h1>My Mountain Forecasts</h1>
