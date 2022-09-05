@@ -48,6 +48,13 @@
     nav.desktop {
       display: none;
     }
+    a {
+      color: $dark;
+      font-weight: bold;
+    }
+    a.title {
+      color: #fff;
+    }
   }
 }
 
