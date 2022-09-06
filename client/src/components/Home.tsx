@@ -22,7 +22,6 @@ const Home = ({ user }: AuthProps) => {
           <div className="link-container">
             <Link to="/forecast">Forecast</Link>
             <Link to="/alerts">Alerts</Link>
-            <Link to="/account">Account</Link>
           </div>
         )}
       </div>
