@@ -9,7 +9,7 @@ const Footer = () => {
       >
         <img
           src={require('../assets/icons/iconmonstr-github-1.svg').default}
-          alt=""
+          alt="github logo"
         />
       </a>
     </footer>
