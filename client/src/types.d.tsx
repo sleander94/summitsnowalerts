@@ -46,6 +46,7 @@ export interface daysObj {
 export interface WeatherProps {
   name: string;
   location: number;
+  completeLoading: Function;
 }
 
 export interface NavbarProps {

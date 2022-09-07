@@ -50,7 +50,7 @@ const Forecast = ({ user }: AuthProps) => {
                   key={mountain}
                   name={mountain}
                   location={mountains[mountain] as number}
-                  loading={completeLoading}
+                  completeLoading={completeLoading}
                 />
               );
             })}
