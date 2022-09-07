@@ -2,6 +2,7 @@ import { useEffect, useState, FormEvent } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthProps, mountainsObj, daysObj, timesObj } from '../../types.d';
 import { mountains as mountainsRef } from '../../mountains';
+import Loading from '../Loading';
 
 const AlertsForm = ({ user }: AuthProps) => {
   const getAccountInfo = async () => {
@@ -18,7 +19,7 @@ const AlertsForm = ({ user }: AuthProps) => {
       setTimes(data.notifications.times);
       setDays(data.notifications.days);
       setMountains(data.mountains);
-      setContent(true);
+      setLoaded(true);
     } catch (err) {
       console.error(err);
     }
@@ -28,7 +29,7 @@ const AlertsForm = ({ user }: AuthProps) => {
     getAccountInfo();
   }, [user]);
 
-  const [content, setContent] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const [text, setText] = useState<boolean>(false);
   const [email, setEmail] = useState<boolean>(false);
@@ -117,9 +118,10 @@ const AlertsForm = ({ user }: AuthProps) => {
     <section id="alerts-form">
       {!user && <Navigate to="/" />}
       <div className="background-image"></div>
-      {content && (
-        <div className="content">
-          <h1>Alert Settings</h1>
+      <div className="content">
+        <h1>Alert Settings</h1>
+        {!loaded && <Loading />}
+        {loaded && (
           <form action="" onSubmit={(e) => handleSubmit(e)}>
             <div className="checkboxes">
               <div className="form-field-check">
@@ -304,8 +306,8 @@ const AlertsForm = ({ user }: AuthProps) => {
               <p className="posted">Alert settings updated successfully.</p>
             )}
           </form>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 };

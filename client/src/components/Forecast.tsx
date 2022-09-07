@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import { AuthProps, mountainsObj } from '../types.d';
 import MountainWeather from './MountainWeather';
+import Loading from './Loading';
 
 const Forecast = ({ user }: AuthProps) => {
   const [mountains, setMountains] = useState<mountainsObj>();
+  const [loaded, setLoaded] = useState<boolean>(false);
+
+  const completeLoading = () => {
+    setLoaded(true);
+  };
 
   const getMountains = async () => {
     try {
@@ -34,6 +40,7 @@ const Forecast = ({ user }: AuthProps) => {
             Log in to view the weather at your mountains.
           </h2>
         )}
+        {!loaded && user && <Loading />}
         <div className="weather">
           {mountains &&
             Object.keys(mountains).map((key) => {
@@ -43,6 +50,7 @@ const Forecast = ({ user }: AuthProps) => {
                   key={mountain}
                   name={mountain}
                   location={mountains[mountain] as number}
+                  loading={completeLoading}
                 />
               );
             })}

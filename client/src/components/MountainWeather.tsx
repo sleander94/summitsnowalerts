@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WeatherProps } from '../types.d';
 
-const MountainWeather = ({ name, location }: WeatherProps) => {
+const MountainWeather = ({ name, location, loading }: WeatherProps) => {
   const [weather, setWeather] = useState<any>();
   const [content, setContent] = useState<boolean>(false);
 
@@ -12,6 +12,7 @@ const MountainWeather = ({ name, location }: WeatherProps) => {
     const data = await response.json();
     setWeather(data);
     setContent(true);
+    loading();
   };
   useEffect(() => {
     getConditions(location);

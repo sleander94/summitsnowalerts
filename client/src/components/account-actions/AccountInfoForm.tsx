@@ -1,6 +1,7 @@
 import { useEffect, useState, FormEvent, KeyboardEvent } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthProps } from '../../types.d';
+import Loading from '../Loading';
 
 const AccountInfoForm = ({ user }: AuthProps) => {
   const getAccountInfo = async () => {
@@ -16,7 +17,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
       setEmail(data.email);
       setNewEmail(data.email);
       setPhone(data.phone);
-      setContent(true);
+      setLoaded(true);
     } catch (err) {
       console.error(err);
     }
@@ -26,7 +27,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
     getAccountInfo();
   }, [user]);
 
-  const [content, setContent] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>('');
@@ -138,9 +139,11 @@ const AccountInfoForm = ({ user }: AuthProps) => {
     <section id="account-info-form">
       {!user && <Navigate to="/" />}
       <div className="background-image"></div>
-      {content && (
-        <div className="content">
-          <h1>Account Info</h1>
+
+      <div className="content">
+        <h1>Account Info</h1>
+        {!loaded && <Loading />}
+        {loaded && (
           <form action="" onSubmit={(e) => handleSubmit(e)}>
             <div className="form-field">
               <label htmlFor="name">Name: </label>
@@ -355,8 +358,8 @@ const AccountInfoForm = ({ user }: AuthProps) => {
             {postError && <p className="post-error">{postError}</p>}
             {posted && <p className="posted">Account updated successfully.</p>}
           </form>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 };
