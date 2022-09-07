@@ -879,4 +879,40 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 #footer a img {
   filter: invert(100%) sepia(0%) saturate(5117%) hue-rotate(199deg) brightness(106%) contrast(107%);
+}
+
+.loading {
+  position: relative;
+  z-index: 2;
+  margin-top: 8rem;
+  width: 80%;
+  max-width: 600px;
+  height: 5px;
+  background-color: #fff;
+}
+.loading .bar {
+  width: 10%;
+  height: 100%;
+  background-color: #151c36;
+  position: absolute;
+  -webkit-animation: expand 1s ease-in-out 0s infinite;
+          animation: expand 1s ease-in-out 0s infinite;
+}
+
+@-webkit-keyframes expand {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: 90%;
+  }
+}
+
+@keyframes expand {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: 90%;
+  }
 }/*# sourceMappingURL=main.css.map */
