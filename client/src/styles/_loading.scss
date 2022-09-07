@@ -1,0 +1,25 @@
+.loading {
+  position: relative;
+  z-index: 2;
+  margin-top: 8rem;
+  width: 80%;
+  max-width: 600px;
+  height: 5px;
+  background-color: #fff;
+  .bar {
+    width: 10%;
+    height: 100%;
+    background-color: $dark;
+    position: absolute;
+    animation: expand 1s ease-in-out 0s infinite;
+  }
+}
+
+@keyframes expand {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: 90%;
+  }
+}
