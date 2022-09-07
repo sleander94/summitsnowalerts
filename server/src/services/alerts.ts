@@ -73,6 +73,8 @@ export async function sendAlerts() {
     const date = new Date();
     const currDay = days[date.getDay()];
     const currTime = date.getHours();
+    console.log('Day: ' + currDay);
+    console.log('Time: ' + currTime);
 
     const results = await User.find({
       [`notifications.days.${currDay}`]: true,
@@ -87,7 +89,7 @@ export async function sendAlerts() {
           user.mountains
         ) as (keyof mountainsObj)[];
         for (const mountain of keys) {
-          if (weather[mountain].snow === 0) {
+          if (weather[mountain].snow === 1) {
             if (user.notifications.text && user.phone.length > 0) {
               const body = `Summit Snow Alerts: Powder Alert for ${mountain}\n${weather[mountain].snowChance}% chance for ${weather[mountain].precip} inches.\nReply STOP to unsubscribe.`;
               client.messages.create({
