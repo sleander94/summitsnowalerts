@@ -15,23 +15,14 @@ const server = setupServer(
   })
 );
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-afterEach(cleanup);
 const user = userEvent.setup();
 
-const mockUserData = {
-  _id: 'aoifh73$%D3g3',
-  name: 'Test User',
-  email: 'test@email.com',
-  phone: '(555)555-5555',
-  password: 'aorinferu142431e5e23e',
-  emailAlert: true,
-  textAlert: true,
-  mountains: { Breckenridge: 80424 },
-};
+beforeAll(() => server.listen());
+afterEach(() => {
+  server.resetHandlers();
+  cleanup;
+});
+afterAll(() => server.close());
 
 it('Updates email input properly', async () => {
   render(
@@ -186,5 +177,3 @@ it('Displays error message on unsuccessful, but not unauthorized login attempt',
     ).toBeInTheDocument()
   );
 });
-
-// Integration test redirect on successful login

@@ -15,12 +15,14 @@ const server = setupServer(
   })
 );
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-afterEach(cleanup);
 const user = userEvent.setup();
+
+beforeAll(() => server.listen());
+afterEach(() => {
+  server.resetHandlers();
+  cleanup;
+});
+afterAll(() => server.close());
 
 it('Updates name properly', async () => {
   render(
