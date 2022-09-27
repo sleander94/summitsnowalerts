@@ -105,7 +105,7 @@ const AlertsForm = ({ user }: AuthProps) => {
         } else if (response.status === 401) {
           setPostError('Incorrect password.');
         } else {
-          setPostError('Bad request. Password incorrect');
+          setPostError('Bad request. Password incorrect.');
         }
         setPosting(false);
       } catch (err) {
@@ -161,13 +161,18 @@ const AlertsForm = ({ user }: AuthProps) => {
                   .map((key) => {
                     const mountain = key as keyof mountainsObj;
                     return (
-                      <option key={mountain} value={mountain}>
+                      <option
+                        data-testid="select-option"
+                        key={mountain}
+                        value={mountain}
+                      >
                         {mountain}
                       </option>
                     );
                   })}
               </select>
               <button
+                data-testid="mountain-add"
                 type="button"
                 onClick={() => addMountain(selectedMountain)}
               >
@@ -178,7 +183,7 @@ const AlertsForm = ({ user }: AuthProps) => {
               <p>You haven't selected any mountains.</p>
             )}
             {mountains && (
-              <ol>
+              <ol data-testid="mountain-list">
                 {Object.keys(mountains).map((key) => {
                   const mountain = key as keyof mountainsObj;
                   return (
@@ -217,6 +222,7 @@ const AlertsForm = ({ user }: AuthProps) => {
                   })}
               </select>
               <button
+                data-testid="day-add"
                 type="button"
                 onClick={() => handleDayChange(selectedDay)}
               >
@@ -224,7 +230,7 @@ const AlertsForm = ({ user }: AuthProps) => {
               </button>
             </div>
             {days && (
-              <ol>
+              <ol data-testid="day-list">
                 {Object.keys(days).map((key) => {
                   const day = key as keyof daysObj;
                   if (days[day]) {
@@ -265,6 +271,7 @@ const AlertsForm = ({ user }: AuthProps) => {
                   })}
               </select>
               <button
+                data-testid="time-add"
                 type="button"
                 onClick={() => handleTimeChange(selectedTime)}
               >
@@ -272,7 +279,7 @@ const AlertsForm = ({ user }: AuthProps) => {
               </button>
             </div>
             {times && (
-              <ol>
+              <ol data-testid="time-list">
                 {Object.keys(times).map((key) => {
                   const time = Number(key) as keyof timesObj;
                   if (times[time]) {
