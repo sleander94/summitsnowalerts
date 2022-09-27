@@ -80,3 +80,16 @@ export interface timesObj {
   22: boolean;
   23: boolean;
 }
+
+export interface WeatherData {
+  today: forecastObj;
+  tomorrow: forecastObj;
+}
+
+export interface forecastObj {
+  condition: string;
+  icon: string;
+  avgtemp_f: number;
+  daily_chance_of_snow: number;
+  totalprecip_in: number;
+}
