@@ -126,6 +126,7 @@ const AlertsForm = ({ user }: AuthProps) => {
             <div className="checkboxes">
               <div className="form-field-check">
                 <input
+                  id="emailAlert"
                   type="checkbox"
                   name="emailAlert"
                   checked={email}
@@ -135,6 +136,7 @@ const AlertsForm = ({ user }: AuthProps) => {
               </div>
               <div className="form-field-check">
                 <input
+                  id="textAlert"
                   type="checkbox"
                   name="textAlert"
                   checked={text}
@@ -147,6 +149,7 @@ const AlertsForm = ({ user }: AuthProps) => {
             <div className="form-field">
               <label htmlFor="mountains">Add a mountain:</label>
               <select
+                id="mountains"
                 name="mountains"
                 value={selectedMountain}
                 onChange={(e) => {
@@ -196,6 +199,7 @@ const AlertsForm = ({ user }: AuthProps) => {
             <div className="form-field">
               <label htmlFor="days">Add a day:</label>
               <select
+                id="days"
                 name="days"
                 value={selectedDay}
                 onChange={(e) => {
@@ -243,6 +247,7 @@ const AlertsForm = ({ user }: AuthProps) => {
             <div className="form-field">
               <label htmlFor="times">Add a time:</label>
               <select
+                id="times"
                 name="times"
                 value={selectedTime}
                 onChange={(e) => {
@@ -289,6 +294,7 @@ const AlertsForm = ({ user }: AuthProps) => {
             <div className="form-field-pass">
               <label htmlFor="currentPass">Password: </label>
               <input
+                id="currentPass"
                 type="password"
                 name="currentPass"
                 value={password}
