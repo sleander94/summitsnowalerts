@@ -1,9 +1,23 @@
 import Login from '../account-actions/Login';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../../App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+const server = setupServer(
+  rest.post('/users/login', (req, res, ctx) => {
+    return res(
+      ctx.status(401),
+      ctx.json({ message: 'Incorrect email or password.' })
+    );
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 afterEach(cleanup);
 const user = userEvent.setup();
@@ -121,17 +135,56 @@ it('Displays password validation error properly', async () => {
   ).toBeInTheDocument();
 });
 
-it('Link routes to sign up page', async () => {
+it('Link routes to sign up page', () => {
   render(
     <Router>
       <Login user={undefined} />
     </Router>
   );
 
-  expect(screen.getByText("Don't have an account? Signup")).toHaveAttribute(
+  expect(screen.getByText("Don't have an account? Sign up.")).toHaveAttribute(
     'href',
     '/signup'
   );
 });
 
-// Test form submission & error message
+it('Displays error message on invalid login attempt', async () => {
+  render(
+    <Router>
+      <Login user={undefined} />
+    </Router>
+  );
+
+  await user.click(screen.getByRole('button', { name: 'Log In' }));
+
+  await waitFor(() =>
+    expect(screen.getByText('Invalid email or password.')).toBeInTheDocument()
+  );
+});
+
+it('Displays error message on unsuccessful, but not unauthorized login attempt', async () => {
+  server.use(
+    rest.post('/users/login', (req, res, ctx) => {
+      return res(
+        ctx.status(500),
+        ctx.json({ message: 'Incorrect email or password.' })
+      );
+    })
+  );
+
+  render(
+    <Router>
+      <Login user={undefined} />
+    </Router>
+  );
+
+  await user.click(screen.getByRole('button', { name: 'Log In' }));
+
+  await waitFor(() =>
+    expect(
+      screen.getByText('Error logging in. Please try again.')
+    ).toBeInTheDocument()
+  );
+});
+
+// Integration test redirect on successful login

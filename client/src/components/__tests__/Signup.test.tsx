@@ -1,9 +1,23 @@
 import Signup from '../account-actions/Signup';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../../App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+const server = setupServer(
+  rest.post('/users/signup', (req, res, ctx) => {
+    return res(
+      ctx.status(400),
+      ctx.json({ message: 'That email is already taken.' })
+    );
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 afterEach(cleanup);
 const user = userEvent.setup();
@@ -181,4 +195,58 @@ it('Displays confirm password validation error properly', async () => {
   await user.type(confirmPassword, 'whatagreatpassword123');
   await user.click(document.body);
   expect(screen.queryByText("Passwords don't match.")).not.toBeInTheDocument();
+});
+
+it('Link routes to login page', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+
+  expect(screen.getByText('Already have an account? Log in.')).toHaveAttribute(
+    'href',
+    '/login'
+  );
+});
+
+it("Displays error message when trying to sign up with an email that's already in use.", async () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+
+  await user.click(screen.getByRole('button', { name: 'Create Account' }));
+
+  await waitFor(() =>
+    expect(
+      screen.getByText('That email is already in use.')
+    ).toBeInTheDocument()
+  );
+});
+
+it('Displays error message on unsuccessful signup attempt.', async () => {
+  server.use(
+    rest.post('/users/signup', (req, res, ctx) => {
+      return res(
+        ctx.status(500),
+        ctx.json({ message: 'Error creating account.' })
+      );
+    })
+  );
+
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+
+  await user.click(screen.getByRole('button', { name: 'Create Account' }));
+
+  await waitFor(() =>
+    expect(
+      screen.getByText('Error creating account. Please try again.')
+    ).toBeInTheDocument()
+  );
 });
