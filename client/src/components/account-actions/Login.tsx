@@ -48,7 +48,7 @@ const Login = ({ user, getUser }: AuthProps) => {
       <div className="content">
         <h1>Log In</h1>
         <form action="" onSubmit={handleSubmit} noValidate>
-          <Link to="/signup">Don't have an account? Signup</Link>
+          <Link to="/signup">Don't have an account? Sign up.</Link>
           <p>* Required field</p>
           <div className="form-field">
             <label htmlFor="email">Email *</label>

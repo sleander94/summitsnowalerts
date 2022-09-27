@@ -96,7 +96,7 @@ const Signup = () => {
       <div className="content">
         <h1>Create Account</h1>
         <form action="" onSubmit={handleSubmit} noValidate>
-          <Link to="/login">Already have and account? Sign in</Link>
+          <Link to="/login">Already have an account? Log in.</Link>
           <p>* Required field</p>
           <div className="form-field">
             <label htmlFor="name">Name *</label>
