@@ -72,7 +72,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
         ? setPasswordErr('6+ characters with 1 letter and 1 number.')
         : setPasswordErr(undefined);
       newPass !== confirmPass
-        ? setConfirmPassErr("Password don't match.")
+        ? setConfirmPassErr("Passwords don't match.")
         : setConfirmPassErr(undefined);
     }
   }, [newPass, confirmPass]);
@@ -145,7 +145,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
         {!loaded && <Loading />}
         {loaded && (
           <form action="" onSubmit={(e) => handleSubmit(e)}>
-            <div className="form-field">
+            <div data-testid="name" className="form-field">
               <label htmlFor="name">Name: </label>
               {!editName && (
                 <>
@@ -189,7 +189,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 </>
               )}
             </div>
-            <div className="form-field">
+            <div data-testid="email" className="form-field">
               <label htmlFor="email">Email: </label>
               {!editEmail && (
                 <>
@@ -233,7 +233,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 </>
               )}
             </div>
-            <div className="form-field">
+            <div data-testid="phone" className="form-field">
               <label htmlFor="phone">Phone: </label>
               {!editPhone && (
                 <>
@@ -277,12 +277,16 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 </>
               )}
             </div>
-            <div className="form-field">
+            <div data-testid="newPass" className="form-field">
               <label htmlFor="newPass">Password: </label>
               {!editPass && (
                 <>
                   <p>{newPass ? '*'.repeat(newPass.length) : '******'}</p>
-                  <button type="button" onClick={() => setEditPass(true)}>
+                  <button
+                    data-testid="pass-button"
+                    type="button"
+                    onClick={() => setEditPass(true)}
+                  >
                     <img
                       src={
                         require('../../assets/icons/icons8-edit.svg').default
@@ -295,6 +299,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               {editPass && (
                 <>
                   <input
+                    data-testid="pass-input"
                     type="password"
                     name="newPass"
                     autoFocus
@@ -307,6 +312,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                   />
                   {passwordErr && <p className="error">{passwordErr}</p>}
                   <button
+                    data-testid="pass-button"
                     type="button"
                     onClick={() =>
                       !passwordErr && !confirmPassErr
@@ -325,9 +331,10 @@ const AccountInfoForm = ({ user }: AuthProps) => {
               )}
             </div>
             {editPass && (
-              <div className="form-field">
+              <div data-testid="confirmPass" className="form-field">
                 <label htmlFor="confirmPass"> Confirm Password: </label>
                 <input
+                  data-testid="confirm-pass-input"
                   type="password"
                   name="confirmPass"
                   value={confirmPass}
@@ -340,7 +347,7 @@ const AccountInfoForm = ({ user }: AuthProps) => {
                 {confirmPassErr && <p className="error">{confirmPassErr}</p>}
               </div>
             )}
-            <div className="form-field">
+            <div data-testid="currentPass" className="form-field">
               <label htmlFor="currentPass">Current Password: </label>
               <input
                 type="password"
