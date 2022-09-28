@@ -1,0 +1,479 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Displays login prompt message when logged out 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        id="forecast"
+      >
+        <div
+          class="background-image"
+        />
+        <div
+          class="content"
+        >
+          <h1>
+            My Mountain Forecasts
+          </h1>
+          <h2
+            class="no-user"
+          >
+            Log in to view the weather at your mountains.
+          </h2>
+          <div
+            class="weather"
+          />
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      id="forecast"
+    >
+      <div
+        class="background-image"
+      />
+      <div
+        class="content"
+      >
+        <h1>
+          My Mountain Forecasts
+        </h1>
+        <h2
+          class="no-user"
+        >
+          Log in to view the weather at your mountains.
+        </h2>
+        <div
+          class="weather"
+        />
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Renders correctly after loading weather data 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        id="forecast"
+      >
+        <div
+          class="background-image"
+        />
+        <div
+          class="content"
+        >
+          <h1>
+            My Mountain Forecasts
+          </h1>
+          <div
+            class="weather"
+          >
+            <div
+              class="mountain-weather"
+              id="Breckenridge"
+            >
+              <div
+                class="weather-content"
+              >
+                <h2>
+                  Breckenridge
+                </h2>
+                <div
+                  class="current-conditions"
+                >
+                  <h3>
+                    Today
+                  </h3>
+                  <p>
+                    Sunny
+                  </p>
+                  <img
+                    alt="Sunny icon"
+                    src="fakeurl"
+                  />
+                  <p>
+                    72.3
+                     °F
+                  </p>
+                  <p>
+                    Snow: 
+                    0
+                    %
+                  </p>
+                  <p>
+                    Precip: 
+                    0
+                     in.
+                  </p>
+                </div>
+                <div
+                  class="forecast"
+                >
+                  <h3>
+                    Tomorrow
+                  </h3>
+                  <p>
+                    Snowy
+                  </p>
+                  <img
+                    alt="Snowy icon"
+                    src="fakeurl"
+                  />
+                  <p>
+                    28
+                     °F
+                  </p>
+                  <p>
+                    Snow: 
+                    95
+                    %
+                  </p>
+                  <p>
+                    Precip: 
+                    5.5
+                     in.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mountain-weather"
+              id="Keystone"
+            >
+              <div
+                class="weather-content"
+              >
+                <h2>
+                  Keystone
+                </h2>
+                <div
+                  class="current-conditions"
+                >
+                  <h3>
+                    Today
+                  </h3>
+                  <p>
+                    Sunny
+                  </p>
+                  <img
+                    alt="Sunny icon"
+                    src="fakeurl"
+                  />
+                  <p>
+                    72.3
+                     °F
+                  </p>
+                  <p>
+                    Snow: 
+                    0
+                    %
+                  </p>
+                  <p>
+                    Precip: 
+                    0
+                     in.
+                  </p>
+                </div>
+                <div
+                  class="forecast"
+                >
+                  <h3>
+                    Tomorrow
+                  </h3>
+                  <p>
+                    Snowy
+                  </p>
+                  <img
+                    alt="Snowy icon"
+                    src="fakeurl"
+                  />
+                  <p>
+                    28
+                     °F
+                  </p>
+                  <p>
+                    Snow: 
+                    95
+                    %
+                  </p>
+                  <p>
+                    Precip: 
+                    5.5
+                     in.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      id="forecast"
+    >
+      <div
+        class="background-image"
+      />
+      <div
+        class="content"
+      >
+        <h1>
+          My Mountain Forecasts
+        </h1>
+        <div
+          class="weather"
+        >
+          <div
+            class="mountain-weather"
+            id="Breckenridge"
+          >
+            <div
+              class="weather-content"
+            >
+              <h2>
+                Breckenridge
+              </h2>
+              <div
+                class="current-conditions"
+              >
+                <h3>
+                  Today
+                </h3>
+                <p>
+                  Sunny
+                </p>
+                <img
+                  alt="Sunny icon"
+                  src="fakeurl"
+                />
+                <p>
+                  72.3
+                   °F
+                </p>
+                <p>
+                  Snow: 
+                  0
+                  %
+                </p>
+                <p>
+                  Precip: 
+                  0
+                   in.
+                </p>
+              </div>
+              <div
+                class="forecast"
+              >
+                <h3>
+                  Tomorrow
+                </h3>
+                <p>
+                  Snowy
+                </p>
+                <img
+                  alt="Snowy icon"
+                  src="fakeurl"
+                />
+                <p>
+                  28
+                   °F
+                </p>
+                <p>
+                  Snow: 
+                  95
+                  %
+                </p>
+                <p>
+                  Precip: 
+                  5.5
+                   in.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mountain-weather"
+            id="Keystone"
+          >
+            <div
+              class="weather-content"
+            >
+              <h2>
+                Keystone
+              </h2>
+              <div
+                class="current-conditions"
+              >
+                <h3>
+                  Today
+                </h3>
+                <p>
+                  Sunny
+                </p>
+                <img
+                  alt="Sunny icon"
+                  src="fakeurl"
+                />
+                <p>
+                  72.3
+                   °F
+                </p>
+                <p>
+                  Snow: 
+                  0
+                  %
+                </p>
+                <p>
+                  Precip: 
+                  0
+                   in.
+                </p>
+              </div>
+              <div
+                class="forecast"
+              >
+                <h3>
+                  Tomorrow
+                </h3>
+                <p>
+                  Snowy
+                </p>
+                <img
+                  alt="Snowy icon"
+                  src="fakeurl"
+                />
+                <p>
+                  28
+                   °F
+                </p>
+                <p>
+                  Snow: 
+                  95
+                  %
+                </p>
+                <p>
+                  Precip: 
+                  5.5
+                   in.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

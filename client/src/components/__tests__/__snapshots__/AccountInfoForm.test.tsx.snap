@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders with correct user data displayed after fetch 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        id="account-info-form"
+      >
+        <div
+          class="background-image"
+        />
+        <div
+          class="content"
+        >
+          <h1>
+            Account Info
+          </h1>
+          <form
+            action=""
+          >
+            <div
+              class="form-field"
+              data-testid="name"
+            >
+              <label
+                for="name"
+              >
+                Name: 
+              </label>
+              <p>
+                Test User
+              </p>
+              <button
+                type="button"
+              >
+                <img
+                  alt="Edit"
+                  src="icons8-edit.svg"
+                />
+              </button>
+            </div>
+            <div
+              class="form-field"
+              data-testid="email"
+            >
+              <label
+                for="email"
+              >
+                Email: 
+              </label>
+              <p>
+                test@email.com
+              </p>
+              <button
+                type="button"
+              >
+                <img
+                  alt="Edit"
+                  src="icons8-edit.svg"
+                />
+              </button>
+            </div>
+            <div
+              class="form-field"
+              data-testid="phone"
+            >
+              <label
+                for="phone"
+              >
+                Phone: 
+              </label>
+              <p>
+                (555)555-5555
+              </p>
+              <button
+                type="button"
+              >
+                <img
+                  alt="Edit"
+                  src="icons8-edit.svg"
+                />
+              </button>
+            </div>
+            <div
+              class="form-field"
+              data-testid="newPass"
+            >
+              <label
+                for="newPass"
+              >
+                Password: 
+              </label>
+              <p>
+                ******
+              </p>
+              <button
+                data-testid="pass-button"
+                type="button"
+              >
+                <img
+                  alt="Edit"
+                  src="icons8-edit.svg"
+                />
+              </button>
+            </div>
+            <div
+              class="form-field"
+              data-testid="currentPass"
+            >
+              <label
+                for="currentPass"
+              >
+                Current Password: 
+              </label>
+              <input
+                name="currentPass"
+                type="password"
+                value=""
+              />
+              <button
+                class="submit"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      id="account-info-form"
+    >
+      <div
+        class="background-image"
+      />
+      <div
+        class="content"
+      >
+        <h1>
+          Account Info
+        </h1>
+        <form
+          action=""
+        >
+          <div
+            class="form-field"
+            data-testid="name"
+          >
+            <label
+              for="name"
+            >
+              Name: 
+            </label>
+            <p>
+              Test User
+            </p>
+            <button
+              type="button"
+            >
+              <img
+                alt="Edit"
+                src="icons8-edit.svg"
+              />
+            </button>
+          </div>
+          <div
+            class="form-field"
+            data-testid="email"
+          >
+            <label
+              for="email"
+            >
+              Email: 
+            </label>
+            <p>
+              test@email.com
+            </p>
+            <button
+              type="button"
+            >
+              <img
+                alt="Edit"
+                src="icons8-edit.svg"
+              />
+            </button>
+          </div>
+          <div
+            class="form-field"
+            data-testid="phone"
+          >
+            <label
+              for="phone"
+            >
+              Phone: 
+            </label>
+            <p>
+              (555)555-5555
+            </p>
+            <button
+              type="button"
+            >
+              <img
+                alt="Edit"
+                src="icons8-edit.svg"
+              />
+            </button>
+          </div>
+          <div
+            class="form-field"
+            data-testid="newPass"
+          >
+            <label
+              for="newPass"
+            >
+              Password: 
+            </label>
+            <p>
+              ******
+            </p>
+            <button
+              data-testid="pass-button"
+              type="button"
+            >
+              <img
+                alt="Edit"
+                src="icons8-edit.svg"
+              />
+            </button>
+          </div>
+          <div
+            class="form-field"
+            data-testid="currentPass"
+          >
+            <label
+              for="currentPass"
+            >
+              Current Password: 
+            </label>
+            <input
+              name="currentPass"
+              type="password"
+              value=""
+            />
+            <button
+              class="submit"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
