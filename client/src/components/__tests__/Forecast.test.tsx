@@ -13,19 +13,31 @@ const server = setupServer(
   rest.get('https://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {
     return res(
       ctx.json({
-        today: {
-          condition: 'Sunny',
-          icon: 'fakeurl',
-          avgtemp_f: '72.3',
-          daily_chance_of_snow: 0,
-          totalprecip_in: 0,
-        },
-        tomorrow: {
-          condition: 'Snowy',
-          icon: 'fakeurl',
-          avgtemp_f: '28',
-          daily_chance_of_snow: 0.95,
-          totalprecip_in: 5.5,
+        forecast: {
+          forecastday: [
+            {
+              day: {
+                condition: {
+                  text: 'Sunny',
+                  icon: 'fakeurl',
+                },
+                avgtemp_f: 72.3,
+                daily_chance_of_snow: 0,
+                totalprecip_in: 0,
+              },
+            },
+            {
+              day: {
+                condition: {
+                  text: 'Snowy',
+                  icon: 'fakeurl',
+                },
+                avgtemp_f: 28,
+                daily_chance_of_snow: 0.95,
+                totalprecip_in: 5.5,
+              },
+            },
+          ],
         },
       })
     );
@@ -59,8 +71,10 @@ it('Renders correctly after loading weather data', async () => {
   );
 
   await waitFor(() =>
-    expect(document.getElementById('Breckenridge')).toBeInTheDocument()
+    expect(document.getElementById('loading')).not.toBeInTheDocument()
   );
+
+  await waitFor(() => expect(screen.getAllByText('Sunny')).toHaveLength(2));
 
   expect(component).toMatchSnapshot();
 });
