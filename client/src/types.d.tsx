@@ -4,8 +4,12 @@ export interface User {
   email: string;
   phone: string;
   password: string;
-  emailAlert: boolean;
-  textAlert: boolean;
+  notifications: {
+    text: boolean;
+    email: boolean;
+    times: timesObj;
+    days: daysObj;
+  };
   mountains: mountainsObj;
 }
 
