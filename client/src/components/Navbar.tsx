@@ -29,11 +29,11 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         <Link id="home-link" className="menu-item" to="/">
           Home
         </Link>
-        <Link id="mountains-link" className="menu-item" to="/forecast">
+        <Link id="forecast-link" className="menu-item" to="/forecast">
           Forecast
         </Link>
         {user && (
-          <Link id="account-link" className="menu-item" to="/alerts">
+          <Link id="alerts-link" className="menu-item" to="/alerts">
             Alerts
           </Link>
         )}
@@ -84,7 +84,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
           Home
         </Link>
         <Link
-          id="mountains-link"
+          id="forecast-link"
           className="menu-item"
           to="/forecast"
           onClick={() => {
@@ -95,7 +95,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
         </Link>
         {user && (
           <Link
-            id="account-link"
+            id="alerts-link"
             className="menu-item"
             to="/alerts"
             onClick={() => {
