@@ -36,8 +36,8 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-it('Displays login message when logged out', () => {
-  render(
+it('Displays login prompt message when logged out', () => {
+  const component = render(
     <Router>
       <Forecast user={undefined} />
     </Router>
@@ -47,10 +47,12 @@ it('Displays login message when logged out', () => {
     screen.getByText('Log in to view the weather at your mountains.')
   ).toBeInTheDocument();
   expect(screen.queryByText('Breckenridge')).not.toBeInTheDocument();
+
+  expect(component).toMatchSnapshot();
 });
 
-it("Displays MountainWeather components for user's mountains when logged in", async () => {
-  render(
+it('Renders correctly after loading weather data', async () => {
+  const component = render(
     <Router>
       <Forecast user={mockUserData} />
     </Router>
@@ -59,7 +61,6 @@ it("Displays MountainWeather components for user's mountains when logged in", as
   await waitFor(() =>
     expect(document.getElementById('Breckenridge')).toBeInTheDocument()
   );
-  await waitFor(() =>
-    expect(document.getElementById('Keystone')).toBeInTheDocument()
-  );
+
+  expect(component).toMatchSnapshot();
 });
