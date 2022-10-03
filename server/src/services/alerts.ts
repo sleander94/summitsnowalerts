@@ -17,6 +17,27 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+interface WeatherData {
+  Breckenridge: WeatherObj;
+  Keystone: WeatherObj;
+  Vail: WeatherObj;
+  Monarch: WeatherObj;
+  'Arapahoe Basin': WeatherObj;
+  Copper: WeatherObj;
+  'Winter Park': WeatherObj;
+  Steamboat: WeatherObj;
+  'Beaver Creek': WeatherObj;
+  'Crested Butte': WeatherObj;
+  Eldora: WeatherObj;
+  Aspen: WeatherObj;
+}
+
+interface WeatherObj {
+  snow: number;
+  snowChance: number;
+  precip: number;
+}
+
 const getWeather = async (location: number) => {
   try {
     const response = await fetch(
@@ -46,7 +67,7 @@ export async function sendAlerts() {
   };
   try {
     console.log('Getting weather...');
-    let weather: any = {};
+    let weather = {} as WeatherData;
     await Promise.all(
       Object.keys(mountainsRef).map(async (key) => {
         const mountain = key as keyof mountainsObj;
