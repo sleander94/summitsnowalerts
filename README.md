@@ -1,7 +1,6 @@
 # Summit Snow Alerts
 
-## Live site: [summitsnowalerts.com](https://summitsnowalerts.com) 
-
+## Live site: [summitsnowalerts.com](https://summitsnowalerts.com)
 
 <p align="left" width="100%">
     <img width="60%" src="/client/public/images/summitsnowalerts-desktop.png" alt="desktop preview">
@@ -31,7 +30,6 @@ Get notified of snow at your favorite ski resorts.
 
 ## To Do
 
-- Customize alert schedule - specific days of the week / times
 - Add support for more mountains (I take requests 😊)
 - Forgot password recovery
 - Email auto unsubscribe link
