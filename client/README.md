@@ -2,4 +2,4 @@
 
 ## Live site: [summitsnowalerts.com](https://summitsnowalerts.com)
 
-## [View Full README](https://github.com/sleander94/summitsnowalerts)
+## View Full README: [github.com/sleander94/summitsnowalerts](https://github.com/sleander94/summitsnowalerts)
