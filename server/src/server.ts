@@ -101,7 +101,7 @@ app.use(express.static(staticDir));
  *                                  Alert Functions
  **********************************************************************************/
 
-// Send daily text alert at 6:00 MDT
+// Send hourly alerts
 cron.schedule(
   '0 * * * *',
   () => {
