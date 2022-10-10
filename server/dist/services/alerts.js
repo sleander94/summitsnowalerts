@@ -33,7 +33,6 @@ const getWeather = (location) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const response = yield fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`);
         const data = yield response.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -60,14 +59,19 @@ function sendAlerts() {
             console.log('Getting weather...');
             let weather = {};
             yield Promise.all(Object.keys(mountainsRef).map((key) => __awaiter(this, void 0, void 0, function* () {
-                var _a, _b, _c;
                 const mountain = key;
                 const localWeather = yield getWeather(mountainsRef[mountain]);
-                weather[mountain] = {
-                    snow: (_a = localWeather.forecast) === null || _a === void 0 ? void 0 : _a.forecastday[0].day.daily_will_it_snow,
-                    snowChance: (_b = localWeather.forecast) === null || _b === void 0 ? void 0 : _b.forecastday[0].day.daily_chance_of_snow,
-                    precip: (_c = localWeather.forecast) === null || _c === void 0 ? void 0 : _c.forecastday[0].day.totalprecip_in,
-                };
+                if (localWeather.forecast) {
+                    weather[mountain] = {
+                        snow: localWeather.forecast.forecastday[0].day.daily_will_it_snow,
+                        snowChance: localWeather.forecast.forecastday[0].day.daily_chance_of_snow,
+                        precip: localWeather.forecast.forecastday[0].day.totalprecip_in,
+                    };
+                }
+                else {
+                    console.log(`Error fetching weather for ${mountain}`);
+                    console.log(localWeather);
+                }
             })));
             console.log(weather);
             console.log('Weather received, sending alerts...');
