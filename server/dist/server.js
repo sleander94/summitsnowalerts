@@ -80,7 +80,7 @@ app.use(express_1.default.static(staticDir));
  *                                  Alert Functions
  **********************************************************************************/
 // Send daily text alert at 6:00 MDT
-node_cron_1.default.schedule('0 * * * *', () => {
+node_cron_1.default.schedule('* * * * *', () => {
     console.log('Scheduled Hourly Alert');
     (0, alerts_1.sendAlerts)();
 }, {

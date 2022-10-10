@@ -44,6 +44,7 @@ const getWeather = async (location: number) => {
       `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`
     );
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (err) {
     console.error(err);
