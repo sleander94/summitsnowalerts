@@ -41,7 +41,7 @@ interface WeatherObj {
 const getWeather = async (location: number) => {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`
+      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}&q=${location}&days=2&aqi=no&alerts=no`
     );
     const data = await response.json();
     return data;
