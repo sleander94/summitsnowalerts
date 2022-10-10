@@ -33,7 +33,6 @@ const getWeather = (location) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const response = yield fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}&q=${location}&days=2&aqi=no&alerts=no`);
         const data = yield response.json();
-        console.log(data.location.name);
         return data;
     }
     catch (err) {
