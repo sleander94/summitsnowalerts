@@ -59,14 +59,16 @@ function sendAlerts() {
             console.log('Getting weather...');
             let weather = {};
             yield Promise.all(Object.keys(mountainsRef).map((key) => __awaiter(this, void 0, void 0, function* () {
+                var _a, _b, _c;
                 const mountain = key;
                 const localWeather = yield getWeather(mountainsRef[mountain]);
                 weather[mountain] = {
-                    snow: localWeather.forecast.forecastday[0].day.daily_will_it_snow,
-                    snowChance: localWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-                    precip: localWeather.forecast.forecastday[0].day.totalprecip_in,
+                    snow: (_a = localWeather.forecast) === null || _a === void 0 ? void 0 : _a.forecastday[0].day.daily_will_it_snow,
+                    snowChance: (_b = localWeather.forecast) === null || _b === void 0 ? void 0 : _b.forecastday[0].day.daily_chance_of_snow,
+                    precip: (_c = localWeather.forecast) === null || _c === void 0 ? void 0 : _c.forecastday[0].day.totalprecip_in,
                 };
             })));
+            console.log(weather);
             console.log('Weather received, sending alerts...');
             const days = [
                 'sunday',
