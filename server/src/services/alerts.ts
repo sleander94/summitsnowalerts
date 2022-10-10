@@ -44,7 +44,6 @@ const getWeather = async (location: number) => {
       `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_KEY}=${location}&days=2&aqi=no&alerts=no`
     );
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);
@@ -73,12 +72,17 @@ export async function sendAlerts() {
       Object.keys(mountainsRef).map(async (key) => {
         const mountain = key as keyof mountainsObj;
         const localWeather = await getWeather(mountainsRef[mountain]);
-        weather[mountain] = {
-          snow: localWeather.forecast?.forecastday[0].day.daily_will_it_snow,
-          snowChance:
-            localWeather.forecast?.forecastday[0].day.daily_chance_of_snow,
-          precip: localWeather.forecast?.forecastday[0].day.totalprecip_in,
-        };
+        if (localWeather.forecast) {
+          weather[mountain] = {
+            snow: localWeather.forecast.forecastday[0].day.daily_will_it_snow,
+            snowChance:
+              localWeather.forecast.forecastday[0].day.daily_chance_of_snow,
+            precip: localWeather.forecast.forecastday[0].day.totalprecip_in,
+          };
+        } else {
+          console.log(`Error fetching weather for ${mountain}`);
+          console.log(localWeather);
+        }
       })
     );
     console.log(weather);
