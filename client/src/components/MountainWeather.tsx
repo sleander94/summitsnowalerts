@@ -16,7 +16,7 @@ const MountainWeather = ({ name, location, completeLoading }: WeatherProps) => {
         icon: data.forecast.forecastday[0].day.condition.icon,
         avgtemp_f: data.forecast.forecastday[0].day.avgtemp_f,
         daily_chance_of_snow:
-          data.forecast.forecastday[0].day.daily_chance_of_snow * 100,
+          data.forecast.forecastday[0].day.daily_chance_of_snow,
         totalprecip_in: data.forecast.forecastday[0].day.totalprecip_in,
       },
       tomorrow: {
@@ -24,7 +24,7 @@ const MountainWeather = ({ name, location, completeLoading }: WeatherProps) => {
         icon: data.forecast.forecastday[1].day.condition.icon,
         avgtemp_f: data.forecast.forecastday[1].day.avgtemp_f,
         daily_chance_of_snow:
-          data.forecast.forecastday[1].day.daily_chance_of_snow * 100,
+          data.forecast.forecastday[1].day.daily_chance_of_snow,
         totalprecip_in: data.forecast.forecastday[1].day.totalprecip_in,
       },
     });

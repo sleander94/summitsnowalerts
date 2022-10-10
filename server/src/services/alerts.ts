@@ -73,13 +73,14 @@ export async function sendAlerts() {
         const mountain = key as keyof mountainsObj;
         const localWeather = await getWeather(mountainsRef[mountain]);
         weather[mountain] = {
-          snow: localWeather.forecast.forecastday[0].day.daily_will_it_snow,
+          snow: localWeather.forecast?.forecastday[0].day.daily_will_it_snow,
           snowChance:
-            localWeather.forecast.forecastday[0].day.daily_chance_of_snow,
-          precip: localWeather.forecast.forecastday[0].day.totalprecip_in,
+            localWeather.forecast?.forecastday[0].day.daily_chance_of_snow,
+          precip: localWeather.forecast?.forecastday[0].day.totalprecip_in,
         };
       })
     );
+    console.log(weather);
     console.log('Weather received, sending alerts...');
 
     const days = [
